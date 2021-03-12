@@ -1,0 +1,10 @@
+commit 07b63d87c484a50fa83749ad634b07f80e0eafb0
+tree 027a7b912f9953dd1bac5fd10c8bd73a90aa1e8f
+parent df9c9a0f8cd8a87588a1e8572892345afd47582a
+author Sławek <sasek.mail@gmail.com> 2021-03-01 19:03:54 +0000
+committer Sławek <sasek.mail@gmail.com> 2021-03-01 19:03:54 +0000
+
+    pol
+
+
+:100644 100644 d288bd2b7c80518fb9eedfa3dc593020bf51aca4 6c1f730a9905bcec5c196a4ab01d6be8e4fbd53e M	src/test/java/pl/pandait/panda/PandaApplicationSeleniumTest.java

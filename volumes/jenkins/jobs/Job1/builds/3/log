@@ -1,0 +1,8 @@
+Started by user [8mha:////4MbR4cP3x9eVEUIQRljhls/EDgF0icI2r1/iuYZasoFEAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyOEgZu/dLi1CL9gsS8lEQABkCbnMAAAAA=[0mSławek Z
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/Job1
+[Job1] $ /bin/sh -xe /tmp/jenkins3496749635113669460.sh
++ echo Hello Word
+Hello Word
++ return 0
+Finished: SUCCESS

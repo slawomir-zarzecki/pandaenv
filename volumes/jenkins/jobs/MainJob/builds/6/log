@@ -1,0 +1,567 @@
+Started by user [8mha:////4MbR4cP3x9eVEUIQRljhls/EDgF0icI2r1/iuYZasoFEAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyOEgZu/dLi1CL9gsS8lEQABkCbnMAAAAA=[0mSławek Z
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/JobGitPull
+The recommended git tool is: NONE
+using credential GitHub2
+ > git rev-parse --is-inside-work-tree # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/slawomir-zarzecki/panda_application.git # timeout=10
+Fetching upstream changes from https://github.com/slawomir-zarzecki/panda_application.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.20.1'
+using GIT_ASKPASS to set credentials GitHub2
+ > git fetch --tags --force --progress -- https://github.com/slawomir-zarzecki/panda_application.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 1fbdef242c4299c58a885945d0756d02d1519e96 (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 1fbdef242c4299c58a885945d0756d02d1519e96 # timeout=10
+Commit message: "Merge Selenium"
+ > git rev-list --no-walk 0a3229522a9d109160437f9baf7a97a1e4fdf7d1 # timeout=10
+[JobGitPull] $ /bin/sh -xe /tmp/jenkins5827193251762602794.sh
++ cat pom.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.2.4.RELEASE</version>
+    <relativePath/>
+    <!-- lookup parent from repository -->
+  </parent>
+  <groupId>pl.pandait</groupId>
+  <artifactId>panda</artifactId>
+  <version>0.0.1</version>
+  <name>panda</name>
+  <description>Demo project for Spring Boot</description>
+  <distributionManagement>
+    <repository>
+      <id>artifactory</id>
+      <name>release</name>
+      <url>http://192.168.44.44:8081/artifactory/libs-release-local</url>
+    </repository>
+    <snapshotRepository>
+      <id>artifactory</id>
+      <name>snapshots</name>
+      <url>http://192.168.44.44:8081/artifactory/libs-snapshot-local</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.junit.vintage</groupId>
+          <artifactId>junit-vintage-engine</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>3.141.59</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <source>11</source>
+          <target>11</target>
+          <maxmem>512m</maxmem>
+        </configuration>
+        <inherited>false</inherited>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>pl.pandait.panda.PandaApplication</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>selenium</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.22.2</version>
+            <executions>
+              <execution>
+                <phase>test</phase>
+                <goals>
+                  <goal>test</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <includes>
+                <include>*SeleniumTest.java</include>
+              </includes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>dev</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.22.2</version>
+            <executions>
+              <execution>
+                <phase>test</phase>
+                <goals>
+                  <goal>test</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <excludes>
+                <exclude>*SeleniumTest.java</exclude>
+              </excludes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>shell</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.0.0</version>
+            <executions>
+              <execution>
+                <phase>compile</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <executable>echo</executable>
+              <arguments>
+                <argument>${env.PATH}</argument>
+              </arguments>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
+[JobGitPull] $ /var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/MVN_36/bin/mvn install
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< pl.pandait:panda >--------------------------
+[INFO] Building panda 0.0.1
+[INFO] --------------------------------[ jar ]---------------------------------
+Downloading from central: https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/2.1/hamcrest-core-2.1.pom
+Progress (1): 1.4 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/2.1/hamcrest-core-2.1.pom (1.4 kB at 1.5 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-java/3.141.59/selenium-java-3.141.59.pom
+Progress (1): 2.7/5.4 kBProgress (1): 5.4 kB                        Downloaded from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-java/3.141.59/selenium-java-3.141.59.pom (5.4 kB at 38 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-api/3.141.59/selenium-api-3.141.59.pom
+Progress (1): 2.6 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-api/3.141.59/selenium-api-3.141.59.pom (2.6 kB at 23 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-chrome-driver/3.141.59/selenium-chrome-driver-3.141.59.pom
+Progress (1): 2.7/4.0 kBProgress (1): 4.0 kB                        Downloaded from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-chrome-driver/3.141.59/selenium-chrome-driver-3.141.59.pom (4.0 kB at 26 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-remote-driver/3.141.59/selenium-remote-driver-3.141.59.pom
+Progress (1): 2.7/3.8 kBProgress (1): 3.8 kB                        Downloaded from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-remote-driver/3.141.59/selenium-remote-driver-3.141.59.pom (3.8 kB at 25 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-exec/1.3/commons-exec-1.3.pom
+Progress (1): 2.7/11 kBProgress (1): 5.5/11 kBProgress (1): 8.2/11 kBProgress (1): 11/11 kB Progress (1): 11 kB                      Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-exec/1.3/commons-exec-1.3.pom (11 kB at 67 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/35/commons-parent-35.pom
+Progress (1): 2.7/58 kBProgress (1): 5.5/58 kBProgress (1): 8.2/58 kBProgress (1): 11/58 kB Progress (1): 14/58 kBProgress (1): 16/58 kBProgress (1): 19/58 kBProgress (1): 22/58 kBProgress (1): 25/58 kBProgress (1): 27/58 kBProgress (1): 30/58 kBProgress (1): 33/58 kBProgress (1): 36/58 kBProgress (1): 38/58 kBProgress (1): 41/58 kBProgress (1): 44/58 kBProgress (1): 47/58 kBProgress (1): 49/58 kBProgress (1): 52/58 kBProgress (1): 55/58 kBProgress (1): 58/58 kBProgress (1): 58 kB                      Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/35/commons-parent-35.pom (58 kB at 251 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/com/google/guava/guava/25.0-jre/guava-25.0-jre.pom
+Progress (1): 2.7/7.8 kBProgress (1): 5.5/7.8 kBProgress (1): 7.8 kB                        Downloaded from central: https://repo.maven.apache.org/maven2/com/google/guava/guava/25.0-jre/guava-25.0-jre.pom (7.8 kB at 56 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/com/google/guava/guava-parent/25.0-jre/guava-parent-25.0-jre.pom
+Progress (1): 2.7/10 kBProgress (1): 5.5/10 kBProgress (1): 8.2/10 kBProgress (1): 10 kB                       Downloaded from central: https://repo.maven.apache.org/maven2/com/google/guava/guava-parent/25.0-jre/guava-parent-25.0-jre.pom (10 kB at 68 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.pom
+Progress (1): 965 B                   Downloaded from central: https://repo.maven.apache.org/maven2/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.pom (965 B at 5.7 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/checkerframework/checker-compat-qual/2.0.0/checker-compat-qual-2.0.0.pom
+Progress (1): 2.7/4.2 kBProgress (1): 4.2 kB                        Downloaded from central: https://repo.maven.apache.org/maven2/org/checkerframework/checker-compat-qual/2.0.0/checker-compat-qual-2.0.0.pom (4.2 kB at 27 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotations/2.1.3/error_prone_annotations-2.1.3.pom
+Progress (1): 1.8 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotations/2.1.3/error_prone_annotations-2.1.3.pom (1.8 kB at 11 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_parent/2.1.3/error_prone_parent-2.1.3.pom
+Progress (1): 2.7/5.1 kBProgress (1): 5.1 kB                        Downloaded from central: https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_parent/2.1.3/error_prone_parent-2.1.3.pom (5.1 kB at 33 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.pom
+Progress (1): 2.7/2.8 kBProgress (1): 2.8 kB                        Downloaded from central: https://repo.maven.apache.org/maven2/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.pom (2.8 kB at 18 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/animal-sniffer-annotations/1.14/animal-sniffer-annotations-1.14.pom
+Progress (1): 2.5 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/animal-sniffer-annotations/1.14/animal-sniffer-annotations-1.14.pom (2.5 kB at 19 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/animal-sniffer-parent/1.14/animal-sniffer-parent-1.14.pom
+Progress (1): 2.7/4.4 kBProgress (1): 4.4 kB                        Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/animal-sniffer-parent/1.14/animal-sniffer-parent-1.14.pom (4.4 kB at 49 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/mojo-parent/34/mojo-parent-34.pom
+Progress (1): 2.7/24 kBProgress (1): 5.5/24 kBProgress (1): 8.2/24 kBProgress (1): 11/24 kB Progress (1): 14/24 kBProgress (1): 16/24 kBProgress (1): 19/24 kBProgress (1): 22/24 kBProgress (1): 24 kB                      Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/mojo-parent/34/mojo-parent-34.pom (24 kB at 196 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/codehaus-parent/4/codehaus-parent-4.pom
+Progress (1): 2.7/4.8 kBProgress (1): 4.8 kB                        Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/codehaus-parent/4/codehaus-parent-4.pom (4.8 kB at 44 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/com/squareup/okhttp3/okhttp/3.14.6/okhttp-3.14.6.pom
+Progress (1): 2.5 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/com/squareup/okhttp3/okhttp/3.14.6/okhttp-3.14.6.pom (2.5 kB at 20 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/com/squareup/okhttp3/parent/3.14.6/parent-3.14.6.pom
+Progress (1): 2.7/21 kBProgress (1): 5.5/21 kBProgress (1): 8.2/21 kBProgress (1): 11/21 kB Progress (1): 14/21 kBProgress (1): 16/21 kBProgress (1): 19/21 kBProgress (1): 21 kB                      Downloaded from central: https://repo.maven.apache.org/maven2/com/squareup/okhttp3/parent/3.14.6/parent-3.14.6.pom (21 kB at 193 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/com/squareup/okio/okio/1.17.2/okio-1.17.2.pom
+Progress (1): 2.0 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/com/squareup/okio/okio/1.17.2/okio-1.17.2.pom (2.0 kB at 21 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/com/squareup/okio/okio-parent/1.17.2/okio-parent-1.17.2.pom
+Progress (1): 2.7/4.9 kBProgress (1): 4.9 kB                        Downloaded from central: https://repo.maven.apache.org/maven2/com/squareup/okio/okio-parent/1.17.2/okio-parent-1.17.2.pom (4.9 kB at 44 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/com/squareup/okio/okio/1.14.0/okio-1.14.0.pom
+Progress (1): 2.0 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/com/squareup/okio/okio/1.14.0/okio-1.14.0.pom (2.0 kB at 17 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/com/squareup/okio/okio-parent/1.14.0/okio-parent-1.14.0.pom
+Progress (1): 4.1/4.9 kBProgress (1): 4.9 kB                        Downloaded from central: https://repo.maven.apache.org/maven2/com/squareup/okio/okio-parent/1.14.0/okio-parent-1.14.0.pom (4.9 kB at 34 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-edge-driver/3.141.59/selenium-edge-driver-3.141.59.pom
+Progress (1): 4.0 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-edge-driver/3.141.59/selenium-edge-driver-3.141.59.pom (4.0 kB at 29 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-firefox-driver/3.141.59/selenium-firefox-driver-3.141.59.pom
+Progress (1): 4.0 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-firefox-driver/3.141.59/selenium-firefox-driver-3.141.59.pom (4.0 kB at 26 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-ie-driver/3.141.59/selenium-ie-driver-3.141.59.pom
+Progress (1): 4.0 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-ie-driver/3.141.59/selenium-ie-driver-3.141.59.pom (4.0 kB at 26 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-opera-driver/3.141.59/selenium-opera-driver-3.141.59.pom
+Progress (1): 4.0 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-opera-driver/3.141.59/selenium-opera-driver-3.141.59.pom (4.0 kB at 41 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-safari-driver/3.141.59/selenium-safari-driver-3.141.59.pom
+Progress (1): 4.0 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-safari-driver/3.141.59/selenium-safari-driver-3.141.59.pom (4.0 kB at 25 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-support/3.141.59/selenium-support-3.141.59.pom
+Progress (1): 4.0 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-support/3.141.59/selenium-support-3.141.59.pom (4.0 kB at 26 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/2.1/hamcrest-core-2.1.jar
+Downloading from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-java/3.141.59/selenium-java-3.141.59.jar
+Downloading from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-api/3.141.59/selenium-api-3.141.59.jar
+Downloading from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-edge-driver/3.141.59/selenium-edge-driver-3.141.59.jar
+Downloading from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-chrome-driver/3.141.59/selenium-chrome-driver-3.141.59.jar
+Progress (1): 1.2 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/2.1/hamcrest-core-2.1.jar (1.2 kB at 8.6 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-firefox-driver/3.141.59/selenium-firefox-driver-3.141.59.jar
+Progress (1): 4.1/810 kBProgress (1): 8.2/810 kBProgress (1): 12/810 kB Progress (1): 16/810 kBProgress (1): 20/810 kBProgress (1): 25/810 kBProgress (1): 29/810 kBProgress (1): 33/810 kBProgress (1): 37/810 kBProgress (1): 41/810 kBProgress (1): 45/810 kBProgress (1): 49/810 kBProgress (1): 53/810 kBProgress (1): 57/810 kBProgress (1): 61/810 kBProgress (1): 66/810 kBProgress (1): 70/810 kBProgress (1): 74/810 kBProgress (1): 78/810 kBProgress (1): 82/810 kBProgress (2): 82/810 kB | 355 BProgress (3): 82/810 kB | 355 B | 2.7/182 kBProgress (3): 86/810 kB | 355 B | 2.7/182 kBProgress (3): 90/810 kB | 355 B | 2.7/182 kBProgress (3): 90/810 kB | 355 B | 5.5/182 kBProgress (3): 94/810 kB | 355 B | 5.5/182 kBProgress (3): 98/810 kB | 355 B | 5.5/182 kBProgress (4): 98/810 kB | 355 B | 5.5/182 kB | 2.7/8.0 kBProgress (4): 98/810 kB | 355 B | 8.2/182 kB | 2.7/8.0 kBProgress (4): 98/810 kB | 355 B | 11/182 kB | 2.7/8.0 kB Progress (4): 98/810 kB | 355 B | 14/182 kB | 2.7/8.0 kBProgress (4): 98/810 kB | 355 B | 16/182 kB | 2.7/8.0 kBProgress (4): 98/810 kB | 355 B | 16/182 kB | 5.5/8.0 kBProgress (4): 102/810 kB | 355 B | 16/182 kB | 5.5/8.0 kBProgress (4): 106/810 kB | 355 B | 16/182 kB | 5.5/8.0 kBProgress (4): 111/810 kB | 355 B | 16/182 kB | 5.5/8.0 kBProgress (4): 115/810 kB | 355 B | 16/182 kB | 5.5/8.0 kBProgress (5): 115/810 kB | 355 B | 16/182 kB | 5.5/8.0 kB | 2.7/14 kBProgress (5): 115/810 kB | 355 B | 19/182 kB | 5.5/8.0 kB | 2.7/14 kBProgress (5): 115/810 kB | 355 B | 19/182 kB | 5.5/8.0 kB | 5.5/14 kBProgress (5): 115/810 kB | 355 B | 22/182 kB | 5.5/8.0 kB | 5.5/14 kBProgress (5): 119/810 kB | 355 B | 22/182 kB | 5.5/8.0 kB | 5.5/14 kBProgress (5): 119/810 kB | 355 B | 22/182 kB | 8.0 kB | 5.5/14 kB    Progress (5): 119/810 kB | 355 B | 22/182 kB | 8.0 kB | 8.2/14 kBProgress (5): 123/810 kB | 355 B | 22/182 kB | 8.0 kB | 8.2/14 kBProgress (5): 123/810 kB | 355 B | 25/182 kB | 8.0 kB | 8.2/14 kBProgress (5): 123/810 kB | 355 B | 27/182 kB | 8.0 kB | 8.2/14 kBProgress (5): 127/810 kB | 355 B | 27/182 kB | 8.0 kB | 8.2/14 kBProgress (5): 131/810 kB | 355 B | 27/182 kB | 8.0 kB | 8.2/14 kBProgress (5): 135/810 kB | 355 B | 27/182 kB | 8.0 kB | 8.2/14 kBProgress (5): 135/810 kB | 355 B | 27/182 kB | 8.0 kB | 11/14 kB Progress (5): 135/810 kB | 355 B | 30/182 kB | 8.0 kB | 11/14 kBProgress (5): 135/810 kB | 355 B | 30/182 kB | 8.0 kB | 14/14 kBProgress (5): 135/810 kB | 355 B | 33/182 kB | 8.0 kB | 14/14 kBProgress (5): 135/810 kB | 355 B | 36/182 kB | 8.0 kB | 14/14 kBProgress (5): 135/810 kB | 355 B | 38/182 kB | 8.0 kB | 14/14 kBProgress (5): 139/810 kB | 355 B | 38/182 kB | 8.0 kB | 14/14 kBProgress (5): 139/810 kB | 355 B | 38/182 kB | 8.0 kB | 14 kB   Progress (5): 139/810 kB | 355 B | 41/182 kB | 8.0 kB | 14 kBProgress (5): 143/810 kB | 355 B | 41/182 kB | 8.0 kB | 14 kBProgress (5): 147/810 kB | 355 B | 41/182 kB | 8.0 kB | 14 kBProgress (5): 152/810 kB | 355 B | 41/182 kB | 8.0 kB | 14 kBProgress (5): 156/810 kB | 355 B | 41/182 kB | 8.0 kB | 14 kBProgress (5): 160/810 kB | 355 B | 41/182 kB | 8.0 kB | 14 kBProgress (5): 164/810 kB | 355 B | 41/182 kB | 8.0 kB | 14 kB                                                             Downloaded from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-java/3.141.59/selenium-java-3.141.59.jar (355 B at 905 B/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-ie-driver/3.141.59/selenium-ie-driver-3.141.59.jar
+Progress (4): 164/810 kB | 44/182 kB | 8.0 kB | 14 kBProgress (4): 164/810 kB | 47/182 kB | 8.0 kB | 14 kBProgress (4): 164/810 kB | 49/182 kB | 8.0 kB | 14 kBProgress (4): 164/810 kB | 52/182 kB | 8.0 kB | 14 kBProgress (4): 164/810 kB | 55/182 kB | 8.0 kB | 14 kBProgress (4): 164/810 kB | 58/182 kB | 8.0 kB | 14 kBProgress (4): 168/810 kB | 58/182 kB | 8.0 kB | 14 kBProgress (4): 172/810 kB | 58/182 kB | 8.0 kB | 14 kBProgress (4): 172/810 kB | 60/182 kB | 8.0 kB | 14 kBProgress (4): 176/810 kB | 60/182 kB | 8.0 kB | 14 kBProgress (4): 180/810 kB | 60/182 kB | 8.0 kB | 14 kBProgress (4): 180/810 kB | 63/182 kB | 8.0 kB | 14 kBProgress (4): 180/810 kB | 66/182 kB | 8.0 kB | 14 kBProgress (4): 184/810 kB | 66/182 kB | 8.0 kB | 14 kBProgress (4): 188/810 kB | 66/182 kB | 8.0 kB | 14 kBProgress (4): 188/810 kB | 69/182 kB | 8.0 kB | 14 kBProgress (4): 193/810 kB | 69/182 kB | 8.0 kB | 14 kBProgress (4): 197/810 kB | 69/182 kB | 8.0 kB | 14 kBProgress (4): 201/810 kB | 69/182 kB | 8.0 kB | 14 kBProgress (4): 201/810 kB | 71/182 kB | 8.0 kB | 14 kB                                                     Downloaded from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-edge-driver/3.141.59/selenium-edge-driver-3.141.59.jar (8.0 kB at 19 kB/s)
+Progress (3): 205/810 kB | 71/182 kB | 14 kBProgress (3): 209/810 kB | 71/182 kB | 14 kBProgress (3): 213/810 kB | 71/182 kB | 14 kB                                            Downloading from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-opera-driver/3.141.59/selenium-opera-driver-3.141.59.jar
+Progress (3): 213/810 kB | 74/182 kB | 14 kBProgress (3): 213/810 kB | 77/182 kB | 14 kBProgress (3): 213/810 kB | 80/182 kB | 14 kBProgress (3): 217/810 kB | 80/182 kB | 14 kBProgress (3): 217/810 kB | 82/182 kB | 14 kBProgress (3): 221/810 kB | 82/182 kB | 14 kBProgress (3): 225/810 kB | 82/182 kB | 14 kBProgress (3): 229/810 kB | 82/182 kB | 14 kBProgress (3): 229/810 kB | 85/182 kB | 14 kBProgress (3): 229/810 kB | 88/182 kB | 14 kBProgress (3): 233/810 kB | 88/182 kB | 14 kBProgress (3): 238/810 kB | 88/182 kB | 14 kBProgress (3): 242/810 kB | 88/182 kB | 14 kBProgress (3): 246/810 kB | 88/182 kB | 14 kBProgress (3): 246/810 kB | 90/182 kB | 14 kBProgress (3): 246/810 kB | 93/182 kB | 14 kBProgress (3): 246/810 kB | 96/182 kB | 14 kBProgress (3): 246/810 kB | 99/182 kB | 14 kBProgress (3): 246/810 kB | 101/182 kB | 14 kBProgress (3): 246/810 kB | 104/182 kB | 14 kB                                             Downloaded from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-chrome-driver/3.141.59/selenium-chrome-driver-3.141.59.jar (14 kB at 29 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-remote-driver/3.141.59/selenium-remote-driver-3.141.59.jar
+Progress (2): 246/810 kB | 107/182 kBProgress (2): 246/810 kB | 110/182 kBProgress (2): 250/810 kB | 110/182 kBProgress (2): 250/810 kB | 112/182 kBProgress (2): 254/810 kB | 112/182 kBProgress (2): 254/810 kB | 115/182 kBProgress (2): 258/810 kB | 115/182 kBProgress (2): 262/810 kB | 115/182 kBProgress (2): 262/810 kB | 118/182 kBProgress (2): 262/810 kB | 121/182 kBProgress (2): 262/810 kB | 123/182 kBProgress (2): 262/810 kB | 126/182 kBProgress (2): 262/810 kB | 129/182 kBProgress (2): 262/810 kB | 132/182 kBProgress (3): 262/810 kB | 132/182 kB | 2.7/17 kBProgress (3): 262/810 kB | 132/182 kB | 5.5/17 kBProgress (3): 262/810 kB | 134/182 kB | 5.5/17 kBProgress (3): 262/810 kB | 134/182 kB | 8.2/17 kBProgress (3): 262/810 kB | 137/182 kB | 8.2/17 kBProgress (3): 262/810 kB | 137/182 kB | 11/17 kB Progress (3): 262/810 kB | 140/182 kB | 11/17 kBProgress (3): 262/810 kB | 140/182 kB | 14/17 kBProgress (3): 262/810 kB | 143/182 kB | 14/17 kBProgress (3): 266/810 kB | 143/182 kB | 14/17 kBProgress (3): 266/810 kB | 145/182 kB | 14/17 kBProgress (3): 270/810 kB | 145/182 kB | 14/17 kBProgress (3): 274/810 kB | 145/182 kB | 14/17 kBProgress (3): 279/810 kB | 145/182 kB | 14/17 kBProgress (3): 279/810 kB | 148/182 kB | 14/17 kBProgress (3): 279/810 kB | 151/182 kB | 14/17 kBProgress (3): 279/810 kB | 154/182 kB | 14/17 kBProgress (3): 279/810 kB | 154/182 kB | 16/17 kBProgress (3): 279/810 kB | 154/182 kB | 17 kB   Progress (3): 279/810 kB | 156/182 kB | 17 kBProgress (3): 283/810 kB | 156/182 kB | 17 kBProgress (3): 287/810 kB | 156/182 kB | 17 kBProgress (3): 291/810 kB | 156/182 kB | 17 kBProgress (3): 295/810 kB | 156/182 kB | 17 kBProgress (3): 295/810 kB | 159/182 kB | 17 kBProgress (3): 295/810 kB | 162/182 kB | 17 kBProgress (3): 295/810 kB | 165/182 kB | 17 kBProgress (3): 295/810 kB | 167/182 kB | 17 kBProgress (3): 295/810 kB | 170/182 kB | 17 kBProgress (4): 295/810 kB | 170/182 kB | 17 kB | 2.7/11 kBProgress (4): 295/810 kB | 173/182 kB | 17 kB | 2.7/11 kBProgress (4): 295/810 kB | 175/182 kB | 17 kB | 2.7/11 kBProgress (4): 299/810 kB | 175/182 kB | 17 kB | 2.7/11 kBProgress (4): 299/810 kB | 175/182 kB | 17 kB | 5.5/11 kBProgress (4): 299/810 kB | 178/182 kB | 17 kB | 5.5/11 kBProgress (4): 303/810 kB | 178/182 kB | 17 kB | 5.5/11 kBProgress (4): 303/810 kB | 178/182 kB | 17 kB | 8.2/11 kBProgress (4): 303/810 kB | 181/182 kB | 17 kB | 8.2/11 kBProgress (4): 307/810 kB | 181/182 kB | 17 kB | 8.2/11 kBProgress (4): 307/810 kB | 181/182 kB | 17 kB | 11 kB    Progress (4): 307/810 kB | 182 kB | 17 kB | 11 kB    Progress (4): 311/810 kB | 182 kB | 17 kB | 11 kBProgress (4): 315/810 kB | 182 kB | 17 kB | 11 kBProgress (4): 319/810 kB | 182 kB | 17 kB | 11 kBProgress (4): 324/810 kB | 182 kB | 17 kB | 11 kBProgress (4): 328/810 kB | 182 kB | 17 kB | 11 kBProgress (4): 332/810 kB | 182 kB | 17 kB | 11 kBProgress (4): 336/810 kB | 182 kB | 17 kB | 11 kBProgress (4): 340/810 kB | 182 kB | 17 kB | 11 kBProgress (4): 344/810 kB | 182 kB | 17 kB | 11 kBProgress (5): 344/810 kB | 182 kB | 17 kB | 11 kB | 2.7/334 kBProgress (5): 344/810 kB | 182 kB | 17 kB | 11 kB | 5.5/334 kBProgress (5): 348/810 kB | 182 kB | 17 kB | 11 kB | 5.5/334 kBProgress (5): 352/810 kB | 182 kB | 17 kB | 11 kB | 5.5/334 kBProgress (5): 356/810 kB | 182 kB | 17 kB | 11 kB | 5.5/334 kBProgress (5): 360/810 kB | 182 kB | 17 kB | 11 kB | 5.5/334 kBProgress (5): 360/810 kB | 182 kB | 17 kB | 11 kB | 8.2/334 kBProgress (5): 360/810 kB | 182 kB | 17 kB | 11 kB | 11/334 kB Progress (5): 360/810 kB | 182 kB | 17 kB | 11 kB | 14/334 kBProgress (5): 360/810 kB | 182 kB | 17 kB | 11 kB | 16/334 kBProgress (5): 360/810 kB | 182 kB | 17 kB | 11 kB | 19/334 kBProgress (5): 360/810 kB | 182 kB | 17 kB | 11 kB | 22/334 kBProgress (5): 365/810 kB | 182 kB | 17 kB | 11 kB | 22/334 kBProgress (5): 369/810 kB | 182 kB | 17 kB | 11 kB | 22/334 kBProgress (5): 373/810 kB | 182 kB | 17 kB | 11 kB | 22/334 kBProgress (5): 377/810 kB | 182 kB | 17 kB | 11 kB | 22/334 kBProgress (5): 377/810 kB | 182 kB | 17 kB | 11 kB | 25/334 kBProgress (5): 381/810 kB | 182 kB | 17 kB | 11 kB | 25/334 kBProgress (5): 385/810 kB | 182 kB | 17 kB | 11 kB | 25/334 kBProgress (5): 385/810 kB | 182 kB | 17 kB | 11 kB | 27/334 kBProgress (5): 385/810 kB | 182 kB | 17 kB | 11 kB | 30/334 kBProgress (5): 385/810 kB | 182 kB | 17 kB | 11 kB | 33/334 kB                                                             Downloaded from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-ie-driver/3.141.59/selenium-ie-driver-3.141.59.jar (17 kB at 28 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-safari-driver/3.141.59/selenium-safari-driver-3.141.59.jar
+Progress (4): 385/810 kB | 182 kB | 11 kB | 36/334 kBProgress (4): 389/810 kB | 182 kB | 11 kB | 36/334 kBProgress (4): 393/810 kB | 182 kB | 11 kB | 36/334 kBProgress (4): 393/810 kB | 182 kB | 11 kB | 38/334 kBProgress (4): 397/810 kB | 182 kB | 11 kB | 38/334 kBProgress (4): 401/810 kB | 182 kB | 11 kB | 38/334 kBProgress (4): 401/810 kB | 182 kB | 11 kB | 41/334 kBProgress (4): 406/810 kB | 182 kB | 11 kB | 41/334 kBProgress (4): 410/810 kB | 182 kB | 11 kB | 41/334 kBProgress (4): 414/810 kB | 182 kB | 11 kB | 41/334 kBProgress (4): 418/810 kB | 182 kB | 11 kB | 41/334 kB                                                     Downloaded from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-opera-driver/3.141.59/selenium-opera-driver-3.141.59.jar (11 kB at 17 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-support/3.141.59/selenium-support-3.141.59.jar
+Downloaded from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-api/3.141.59/selenium-api-3.141.59.jar (182 kB at 277 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-exec/1.3/commons-exec-1.3.jar
+Progress (2): 418/810 kB | 44/334 kBProgress (2): 418/810 kB | 47/334 kBProgress (2): 418/810 kB | 49/334 kBProgress (2): 418/810 kB | 52/334 kBProgress (2): 422/810 kB | 52/334 kBProgress (2): 426/810 kB | 52/334 kBProgress (2): 430/810 kB | 52/334 kBProgress (2): 434/810 kB | 52/334 kBProgress (2): 438/810 kB | 52/334 kBProgress (2): 442/810 kB | 52/334 kBProgress (2): 442/810 kB | 55/334 kBProgress (2): 442/810 kB | 58/334 kBProgress (2): 442/810 kB | 60/334 kBProgress (2): 442/810 kB | 63/334 kBProgress (2): 442/810 kB | 66/334 kBProgress (2): 446/810 kB | 66/334 kBProgress (2): 451/810 kB | 66/334 kBProgress (2): 455/810 kB | 66/334 kBProgress (2): 459/810 kB | 66/334 kBProgress (2): 463/810 kB | 66/334 kBProgress (2): 467/810 kB | 66/334 kBProgress (2): 471/810 kB | 66/334 kBProgress (2): 475/810 kB | 66/334 kBProgress (2): 479/810 kB | 66/334 kBProgress (2): 483/810 kB | 66/334 kBProgress (2): 487/810 kB | 66/334 kBProgress (2): 487/810 kB | 69/334 kBProgress (2): 492/810 kB | 69/334 kBProgress (2): 492/810 kB | 71/334 kBProgress (2): 496/810 kB | 71/334 kBProgress (2): 500/810 kB | 71/334 kBProgress (2): 504/810 kB | 71/334 kBProgress (2): 504/810 kB | 74/334 kBProgress (2): 508/810 kB | 74/334 kBProgress (2): 508/810 kB | 77/334 kBProgress (2): 508/810 kB | 80/334 kBProgress (3): 508/810 kB | 80/334 kB | 2.7/16 kBProgress (3): 508/810 kB | 82/334 kB | 2.7/16 kBProgress (3): 508/810 kB | 85/334 kB | 2.7/16 kBProgress (3): 512/810 kB | 85/334 kB | 2.7/16 kBProgress (3): 512/810 kB | 88/334 kB | 2.7/16 kBProgress (3): 512/810 kB | 88/334 kB | 5.5/16 kBProgress (3): 512/810 kB | 90/334 kB | 5.5/16 kBProgress (3): 512/810 kB | 90/334 kB | 8.2/16 kBProgress (3): 512/810 kB | 93/334 kB | 8.2/16 kBProgress (3): 516/810 kB | 93/334 kB | 8.2/16 kBProgress (3): 520/810 kB | 93/334 kB | 8.2/16 kBProgress (3): 524/810 kB | 93/334 kB | 8.2/16 kBProgress (3): 524/810 kB | 96/334 kB | 8.2/16 kBProgress (3): 524/810 kB | 96/334 kB | 11/16 kB Progress (4): 524/810 kB | 96/334 kB | 11/16 kB | 2.7/151 kBProgress (4): 524/810 kB | 96/334 kB | 14/16 kB | 2.7/151 kBProgress (4): 524/810 kB | 99/334 kB | 14/16 kB | 2.7/151 kBProgress (4): 524/810 kB | 99/334 kB | 16 kB | 2.7/151 kB   Progress (4): 524/810 kB | 101/334 kB | 16 kB | 2.7/151 kBProgress (4): 524/810 kB | 104/334 kB | 16 kB | 2.7/151 kBProgress (4): 524/810 kB | 107/334 kB | 16 kB | 2.7/151 kBProgress (4): 524/810 kB | 110/334 kB | 16 kB | 2.7/151 kBProgress (4): 524/810 kB | 112/334 kB | 16 kB | 2.7/151 kBProgress (4): 524/810 kB | 115/334 kB | 16 kB | 2.7/151 kBProgress (4): 524/810 kB | 118/334 kB | 16 kB | 2.7/151 kBProgress (4): 524/810 kB | 121/334 kB | 16 kB | 2.7/151 kBProgress (5): 524/810 kB | 121/334 kB | 16 kB | 2.7/151 kB | 2.7/54 kBProgress (5): 524/810 kB | 121/334 kB | 16 kB | 2.7/151 kB | 5.5/54 kBProgress (5): 524/810 kB | 121/334 kB | 16 kB | 2.7/151 kB | 8.2/54 kBProgress (5): 524/810 kB | 121/334 kB | 16 kB | 2.7/151 kB | 11/54 kB Progress (5): 524/810 kB | 121/334 kB | 16 kB | 2.7/151 kB | 14/54 kBProgress (5): 524/810 kB | 121/334 kB | 16 kB | 5.5/151 kB | 14/54 kBProgress (5): 524/810 kB | 123/334 kB | 16 kB | 5.5/151 kB | 14/54 kBProgress (5): 528/810 kB | 123/334 kB | 16 kB | 5.5/151 kB | 14/54 kBProgress (5): 532/810 kB | 123/334 kB | 16 kB | 5.5/151 kB | 14/54 kBProgress (5): 537/810 kB | 123/334 kB | 16 kB | 5.5/151 kB | 14/54 kBProgress (5): 541/810 kB | 123/334 kB | 16 kB | 5.5/151 kB | 14/54 kBProgress (5): 545/810 kB | 123/334 kB | 16 kB | 5.5/151 kB | 14/54 kBProgress (5): 548/810 kB | 123/334 kB | 16 kB | 5.5/151 kB | 14/54 kBProgress (5): 552/810 kB | 123/334 kB | 16 kB | 5.5/151 kB | 14/54 kBProgress (5): 556/810 kB | 123/334 kB | 16 kB | 5.5/151 kB | 14/54 kBProgress (5): 556/810 kB | 123/334 kB | 16 kB | 8.2/151 kB | 14/54 kBProgress (5): 556/810 kB | 123/334 kB | 16 kB | 11/151 kB | 14/54 kB Progress (5): 556/810 kB | 123/334 kB | 16 kB | 14/151 kB | 14/54 kBProgress (5): 556/810 kB | 123/334 kB | 16 kB | 16/151 kB | 14/54 kBProgress (5): 556/810 kB | 123/334 kB | 16 kB | 19/151 kB | 14/54 kBProgress (5): 556/810 kB | 123/334 kB | 16 kB | 22/151 kB | 14/54 kBProgress (5): 556/810 kB | 123/334 kB | 16 kB | 22/151 kB | 16/54 kBProgress (5): 556/810 kB | 126/334 kB | 16 kB | 22/151 kB | 16/54 kBProgress (5): 560/810 kB | 126/334 kB | 16 kB | 22/151 kB | 16/54 kBProgress (5): 564/810 kB | 126/334 kB | 16 kB | 22/151 kB | 16/54 kBProgress (5): 564/810 kB | 126/334 kB | 16 kB | 22/151 kB | 19/54 kBProgress (5): 564/810 kB | 129/334 kB | 16 kB | 22/151 kB | 19/54 kBProgress (5): 564/810 kB | 129/334 kB | 16 kB | 22/151 kB | 22/54 kBProgress (5): 564/810 kB | 132/334 kB | 16 kB | 22/151 kB | 22/54 kBProgress (5): 564/810 kB | 132/334 kB | 16 kB | 25/151 kB | 22/54 kBProgress (5): 564/810 kB | 132/334 kB | 16 kB | 27/151 kB | 22/54 kBProgress (5): 564/810 kB | 132/334 kB | 16 kB | 30/151 kB | 22/54 kBProgress (5): 564/810 kB | 132/334 kB | 16 kB | 33/151 kB | 22/54 kBProgress (5): 564/810 kB | 132/334 kB | 16 kB | 33/151 kB | 25/54 kBProgress (5): 564/810 kB | 134/334 kB | 16 kB | 33/151 kB | 25/54 kBProgress (5): 564/810 kB | 134/334 kB | 16 kB | 33/151 kB | 27/54 kBProgress (5): 564/810 kB | 134/334 kB | 16 kB | 33/151 kB | 30/54 kBProgress (5): 564/810 kB | 134/334 kB | 16 kB | 33/151 kB | 33/54 kBProgress (5): 564/810 kB | 134/334 kB | 16 kB | 33/151 kB | 36/54 kBProgress (5): 564/810 kB | 134/334 kB | 16 kB | 36/151 kB | 36/54 kBProgress (5): 564/810 kB | 134/334 kB | 16 kB | 38/151 kB | 36/54 kBProgress (5): 564/810 kB | 134/334 kB | 16 kB | 41/151 kB | 36/54 kBProgress (5): 568/810 kB | 134/334 kB | 16 kB | 41/151 kB | 36/54 kBProgress (5): 572/810 kB | 134/334 kB | 16 kB | 41/151 kB | 36/54 kBProgress (5): 576/810 kB | 134/334 kB | 16 kB | 41/151 kB | 36/54 kBProgress (5): 580/810 kB | 134/334 kB | 16 kB | 41/151 kB | 36/54 kBProgress (5): 584/810 kB | 134/334 kB | 16 kB | 41/151 kB | 36/54 kBProgress (5): 584/810 kB | 134/334 kB | 16 kB | 41/151 kB | 38/54 kBProgress (5): 584/810 kB | 137/334 kB | 16 kB | 41/151 kB | 38/54 kBProgress (5): 584/810 kB | 137/334 kB | 16 kB | 41/151 kB | 41/54 kBProgress (5): 584/810 kB | 137/334 kB | 16 kB | 41/151 kB | 44/54 kBProgress (5): 584/810 kB | 140/334 kB | 16 kB | 41/151 kB | 44/54 kBProgress (5): 584/810 kB | 140/334 kB | 16 kB | 41/151 kB | 47/54 kBProgress (5): 584/810 kB | 143/334 kB | 16 kB | 41/151 kB | 47/54 kBProgress (5): 584/810 kB | 143/334 kB | 16 kB | 41/151 kB | 49/54 kBProgress (5): 584/810 kB | 145/334 kB | 16 kB | 41/151 kB | 49/54 kBProgress (5): 584/810 kB | 145/334 kB | 16 kB | 41/151 kB | 52/54 kBProgress (5): 584/810 kB | 148/334 kB | 16 kB | 41/151 kB | 52/54 kBProgress (5): 589/810 kB | 148/334 kB | 16 kB | 41/151 kB | 52/54 kBProgress (5): 593/810 kB | 148/334 kB | 16 kB | 41/151 kB | 52/54 kBProgress (5): 597/810 kB | 148/334 kB | 16 kB | 41/151 kB | 52/54 kBProgress (5): 597/810 kB | 148/334 kB | 16 kB | 41/151 kB | 54 kB   Progress (5): 597/810 kB | 151/334 kB | 16 kB | 41/151 kB | 54 kBProgress (5): 597/810 kB | 154/334 kB | 16 kB | 41/151 kB | 54 kBProgress (5): 597/810 kB | 156/334 kB | 16 kB | 41/151 kB | 54 kB                                                                 Downloaded from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-safari-driver/3.141.59/selenium-safari-driver-3.141.59.jar (16 kB at 18 kB/s)
+Progress (4): 597/810 kB | 156/334 kB | 44/151 kB | 54 kBProgress (4): 597/810 kB | 156/334 kB | 47/151 kB | 54 kBProgress (4): 597/810 kB | 156/334 kB | 49/151 kB | 54 kBProgress (4): 597/810 kB | 156/334 kB | 52/151 kB | 54 kBProgress (4): 597/810 kB | 156/334 kB | 55/151 kB | 54 kBProgress (4): 597/810 kB | 156/334 kB | 58/151 kB | 54 kBProgress (4): 597/810 kB | 156/334 kB | 60/151 kB | 54 kBProgress (4): 597/810 kB | 156/334 kB | 63/151 kB | 54 kBProgress (4): 601/810 kB | 156/334 kB | 63/151 kB | 54 kBProgress (4): 605/810 kB | 156/334 kB | 63/151 kB | 54 kBProgress (4): 609/810 kB | 156/334 kB | 63/151 kB | 54 kBProgress (4): 613/810 kB | 156/334 kB | 63/151 kB | 54 kBProgress (4): 617/810 kB | 156/334 kB | 63/151 kB | 54 kBProgress (4): 621/810 kB | 156/334 kB | 63/151 kB | 54 kBProgress (4): 625/810 kB | 156/334 kB | 63/151 kB | 54 kBProgress (4): 630/810 kB | 156/334 kB | 63/151 kB | 54 kBProgress (4): 634/810 kB | 156/334 kB | 63/151 kB | 54 kBProgress (4): 634/810 kB | 159/334 kB | 63/151 kB | 54 kBProgress (4): 634/810 kB | 162/334 kB | 63/151 kB | 54 kBProgress (4): 634/810 kB | 162/334 kB | 66/151 kB | 54 kBProgress (4): 638/810 kB | 162/334 kB | 66/151 kB | 54 kB                                                         Downloading from central: https://repo.maven.apache.org/maven2/com/google/guava/guava/25.0-jre/guava-25.0-jre.jar
+Progress (4): 642/810 kB | 162/334 kB | 66/151 kB | 54 kBProgress (4): 642/810 kB | 165/334 kB | 66/151 kB | 54 kBProgress (4): 646/810 kB | 165/334 kB | 66/151 kB | 54 kBProgress (4): 646/810 kB | 167/334 kB | 66/151 kB | 54 kBProgress (4): 650/810 kB | 167/334 kB | 66/151 kB | 54 kBProgress (4): 650/810 kB | 167/334 kB | 69/151 kB | 54 kBProgress (4): 650/810 kB | 167/334 kB | 71/151 kB | 54 kBProgress (4): 650/810 kB | 167/334 kB | 74/151 kB | 54 kBProgress (4): 650/810 kB | 167/334 kB | 77/151 kB | 54 kBProgress (4): 650/810 kB | 167/334 kB | 80/151 kB | 54 kBProgress (4): 650/810 kB | 167/334 kB | 82/151 kB | 54 kBProgress (4): 650/810 kB | 167/334 kB | 85/151 kB | 54 kBProgress (4): 650/810 kB | 167/334 kB | 88/151 kB | 54 kBProgress (4): 654/810 kB | 167/334 kB | 88/151 kB | 54 kBProgress (4): 658/810 kB | 167/334 kB | 88/151 kB | 54 kBProgress (4): 662/810 kB | 167/334 kB | 88/151 kB | 54 kBProgress (4): 666/810 kB | 167/334 kB | 88/151 kB | 54 kBProgress (4): 671/810 kB | 167/334 kB | 88/151 kB | 54 kBProgress (4): 675/810 kB | 167/334 kB | 88/151 kB | 54 kBProgress (4): 679/810 kB | 167/334 kB | 88/151 kB | 54 kBProgress (4): 679/810 kB | 167/334 kB | 90/151 kB | 54 kB                                                         Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-exec/1.3/commons-exec-1.3.jar (54 kB at 57 kB/s)
+Progress (3): 679/810 kB | 170/334 kB | 90/151 kB                                                 Downloading from central: https://repo.maven.apache.org/maven2/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar
+Progress (3): 679/810 kB | 173/334 kB | 90/151 kBProgress (3): 679/810 kB | 175/334 kB | 90/151 kBProgress (3): 679/810 kB | 175/334 kB | 93/151 kBProgress (3): 679/810 kB | 178/334 kB | 93/151 kBProgress (3): 679/810 kB | 178/334 kB | 96/151 kBProgress (3): 679/810 kB | 178/334 kB | 99/151 kBProgress (3): 679/810 kB | 178/334 kB | 101/151 kBProgress (3): 679/810 kB | 178/334 kB | 104/151 kBProgress (3): 679/810 kB | 178/334 kB | 107/151 kBProgress (3): 679/810 kB | 178/334 kB | 110/151 kBProgress (3): 679/810 kB | 178/334 kB | 112/151 kBProgress (3): 679/810 kB | 178/334 kB | 115/151 kBProgress (3): 683/810 kB | 178/334 kB | 115/151 kBProgress (3): 687/810 kB | 178/334 kB | 115/151 kBProgress (3): 691/810 kB | 178/334 kB | 115/151 kBProgress (3): 691/810 kB | 181/334 kB | 115/151 kBProgress (3): 695/810 kB | 181/334 kB | 115/151 kBProgress (3): 695/810 kB | 181/334 kB | 118/151 kBProgress (3): 695/810 kB | 184/334 kB | 118/151 kBProgress (3): 695/810 kB | 186/334 kB | 118/151 kBProgress (3): 695/810 kB | 189/334 kB | 118/151 kBProgress (3): 695/810 kB | 192/334 kB | 118/151 kBProgress (3): 695/810 kB | 192/334 kB | 121/151 kBProgress (3): 695/810 kB | 192/334 kB | 123/151 kBProgress (3): 695/810 kB | 195/334 kB | 123/151 kBProgress (3): 695/810 kB | 195/334 kB | 126/151 kBProgress (3): 695/810 kB | 197/334 kB | 126/151 kBProgress (3): 695/810 kB | 200/334 kB | 126/151 kBProgress (3): 695/810 kB | 203/334 kB | 126/151 kBProgress (3): 695/810 kB | 206/334 kB | 126/151 kBProgress (3): 699/810 kB | 206/334 kB | 126/151 kBProgress (3): 699/810 kB | 208/334 kB | 126/151 kBProgress (3): 699/810 kB | 208/334 kB | 129/151 kBProgress (3): 703/810 kB | 208/334 kB | 129/151 kBProgress (3): 703/810 kB | 211/334 kB | 129/151 kBProgress (3): 707/810 kB | 211/334 kB | 129/151 kBProgress (3): 707/810 kB | 214/334 kB | 129/151 kBProgress (3): 711/810 kB | 214/334 kB | 129/151 kBProgress (3): 711/810 kB | 217/334 kB | 129/151 kBProgress (3): 716/810 kB | 217/334 kB | 129/151 kBProgress (3): 716/810 kB | 217/334 kB | 132/151 kBProgress (3): 716/810 kB | 217/334 kB | 134/151 kBProgress (3): 716/810 kB | 217/334 kB | 137/151 kBProgress (3): 716/810 kB | 217/334 kB | 140/151 kBProgress (3): 716/810 kB | 217/334 kB | 143/151 kBProgress (3): 716/810 kB | 217/334 kB | 145/151 kBProgress (3): 716/810 kB | 217/334 kB | 148/151 kBProgress (3): 716/810 kB | 219/334 kB | 148/151 kBProgress (3): 720/810 kB | 219/334 kB | 148/151 kBProgress (3): 720/810 kB | 222/334 kB | 148/151 kBProgress (3): 724/810 kB | 222/334 kB | 148/151 kBProgress (3): 724/810 kB | 222/334 kB | 151/151 kBProgress (3): 724/810 kB | 222/334 kB | 151 kB    Progress (3): 724/810 kB | 225/334 kB | 151 kBProgress (3): 728/810 kB | 225/334 kB | 151 kBProgress (3): 728/810 kB | 228/334 kB | 151 kBProgress (3): 728/810 kB | 230/334 kB | 151 kBProgress (3): 728/810 kB | 233/334 kB | 151 kBProgress (3): 732/810 kB | 233/334 kB | 151 kBProgress (3): 732/810 kB | 236/334 kB | 151 kBProgress (3): 732/810 kB | 239/334 kB | 151 kBProgress (3): 732/810 kB | 241/334 kB | 151 kBProgress (3): 732/810 kB | 244/334 kB | 151 kBProgress (3): 736/810 kB | 244/334 kB | 151 kBProgress (3): 740/810 kB | 244/334 kB | 151 kBProgress (3): 744/810 kB | 244/334 kB | 151 kBProgress (3): 744/810 kB | 247/334 kB | 151 kBProgress (3): 744/810 kB | 250/334 kB | 151 kBProgress (3): 748/810 kB | 250/334 kB | 151 kBProgress (3): 748/810 kB | 252/334 kB | 151 kBProgress (3): 752/810 kB | 252/334 kB | 151 kBProgress (3): 752/810 kB | 255/334 kB | 151 kBProgress (3): 757/810 kB | 255/334 kB | 151 kBProgress (3): 757/810 kB | 258/334 kB | 151 kBProgress (3): 761/810 kB | 258/334 kB | 151 kBProgress (3): 761/810 kB | 260/334 kB | 151 kBProgress (3): 765/810 kB | 260/334 kB | 151 kBProgress (3): 765/810 kB | 263/334 kB | 151 kBProgress (3): 767/810 kB | 263/334 kB | 151 kBProgress (3): 767/810 kB | 266/334 kB | 151 kBProgress (3): 767/810 kB | 269/334 kB | 151 kBProgress (3): 767/810 kB | 271/334 kB | 151 kBProgress (3): 767/810 kB | 274/334 kB | 151 kBProgress (3): 771/810 kB | 274/334 kB | 151 kBProgress (3): 771/810 kB | 277/334 kB | 151 kBProgress (3): 775/810 kB | 277/334 kB | 151 kBProgress (3): 775/810 kB | 280/334 kB | 151 kBProgress (3): 779/810 kB | 280/334 kB | 151 kBProgress (3): 779/810 kB | 282/334 kB | 151 kBProgress (3): 783/810 kB | 282/334 kB | 151 kBProgress (3): 783/810 kB | 285/334 kB | 151 kBProgress (3): 783/810 kB | 288/334 kB | 151 kBProgress (3): 787/810 kB | 288/334 kB | 151 kBProgress (3): 787/810 kB | 291/334 kB | 151 kBProgress (3): 791/810 kB | 291/334 kB | 151 kBProgress (3): 791/810 kB | 293/334 kB | 151 kBProgress (3): 796/810 kB | 293/334 kB | 151 kBProgress (3): 796/810 kB | 296/334 kB | 151 kBProgress (3): 800/810 kB | 296/334 kB | 151 kBProgress (3): 800/810 kB | 299/334 kB | 151 kBProgress (3): 800/810 kB | 302/334 kB | 151 kBProgress (3): 804/810 kB | 302/334 kB | 151 kBProgress (4): 804/810 kB | 302/334 kB | 151 kB | 0/2.7 MBProgress (4): 808/810 kB | 302/334 kB | 151 kB | 0/2.7 MBProgress (4): 810 kB | 302/334 kB | 151 kB | 0/2.7 MB    Progress (4): 810 kB | 304/334 kB | 151 kB | 0/2.7 MBProgress (4): 810 kB | 307/334 kB | 151 kB | 0/2.7 MBProgress (4): 810 kB | 310/334 kB | 151 kB | 0/2.7 MBProgress (4): 810 kB | 313/334 kB | 151 kB | 0/2.7 MBProgress (4): 810 kB | 315/334 kB | 151 kB | 0/2.7 MBProgress (4): 810 kB | 318/334 kB | 151 kB | 0/2.7 MBProgress (4): 810 kB | 321/334 kB | 151 kB | 0/2.7 MBProgress (4): 810 kB | 321/334 kB | 151 kB | 0/2.7 MBProgress (4): 810 kB | 324/334 kB | 151 kB | 0/2.7 MBProgress (4): 810 kB | 326/334 kB | 151 kB | 0/2.7 MBProgress (4): 810 kB | 329/334 kB | 151 kB | 0/2.7 MBProgress (4): 810 kB | 332/334 kB | 151 kB | 0/2.7 MBProgress (4): 810 kB | 334 kB | 151 kB | 0/2.7 MB    Progress (4): 810 kB | 334 kB | 151 kB | 0/2.7 MBProgress (5): 810 kB | 334 kB | 151 kB | 0/2.7 MB | 4.1/33 kBProgress (5): 810 kB | 334 kB | 151 kB | 0/2.7 MB | 8.2/33 kBProgress (5): 810 kB | 334 kB | 151 kB | 0/2.7 MB | 12/33 kB Progress (5): 810 kB | 334 kB | 151 kB | 0/2.7 MB | 16/33 kBProgress (5): 810 kB | 334 kB | 151 kB | 0/2.7 MB | 20/33 kBProgress (5): 810 kB | 334 kB | 151 kB | 0/2.7 MB | 25/33 kBProgress (5): 810 kB | 334 kB | 151 kB | 0/2.7 MB | 29/33 kBProgress (5): 810 kB | 334 kB | 151 kB | 0/2.7 MB | 33/33 kBProgress (5): 810 kB | 334 kB | 151 kB | 0/2.7 MB | 33 kB                                                            Downloaded from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-support/3.141.59/selenium-support-3.141.59.jar (151 kB at 141 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/checkerframework/checker-compat-qual/2.0.0/checker-compat-qual-2.0.0.jar
+Progress (4): 810 kB | 334 kB | 0/2.7 MB | 33 kBProgress (4): 810 kB | 334 kB | 0.1/2.7 MB | 33 kBProgress (4): 810 kB | 334 kB | 0.1/2.7 MB | 33 kB                                                  Downloaded from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-firefox-driver/3.141.59/selenium-firefox-driver-3.141.59.jar (810 kB at 734 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotations/2.1.3/error_prone_annotations-2.1.3.jar
+Progress (3): 334 kB | 0.1/2.7 MB | 33 kBProgress (3): 334 kB | 0.1/2.7 MB | 33 kBProgress (3): 334 kB | 0.1/2.7 MB | 33 kB                                         Downloaded from central: https://repo.maven.apache.org/maven2/org/seleniumhq/selenium/selenium-remote-driver/3.141.59/selenium-remote-driver-3.141.59.jar (334 kB at 294 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.jar
+Progress (3): 0.1/2.7 MB | 33 kB | 2.7/32 kBProgress (3): 0.1/2.7 MB | 33 kB | 5.5/32 kBProgress (3): 0.1/2.7 MB | 33 kB | 5.5/32 kBProgress (3): 0.1/2.7 MB | 33 kB | 8.2/32 kBProgress (3): 0.1/2.7 MB | 33 kB | 8.2/32 kBProgress (3): 0.1/2.7 MB | 33 kB | 8.2/32 kBProgress (3): 0.1/2.7 MB | 33 kB | 11/32 kB Progress (4): 0.1/2.7 MB | 33 kB | 11/32 kB | 4.1/14 kBProgress (4): 0.1/2.7 MB | 33 kB | 11/32 kB | 8.2/14 kBProgress (4): 0.1/2.7 MB | 33 kB | 11/32 kB | 12/14 kB Progress (4): 0.1/2.7 MB | 33 kB | 11/32 kB | 14 kB   Progress (4): 0.1/2.7 MB | 33 kB | 14/32 kB | 14 kBProgress (4): 0.2/2.7 MB | 33 kB | 14/32 kB | 14 kBProgress (4): 0.2/2.7 MB | 33 kB | 14/32 kB | 14 kBProgress (4): 0.2/2.7 MB | 33 kB | 14/32 kB | 14 kBProgress (4): 0.2/2.7 MB | 33 kB | 14/32 kB | 14 kBProgress (4): 0.2/2.7 MB | 33 kB | 14/32 kB | 14 kB                                                   Downloaded from central: https://repo.maven.apache.org/maven2/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar (33 kB at 28 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/animal-sniffer-annotations/1.14/animal-sniffer-annotations-1.14.jar
+Progress (3): 0.2/2.7 MB | 16/32 kB | 14 kBProgress (3): 0.2/2.7 MB | 19/32 kB | 14 kBProgress (3): 0.2/2.7 MB | 22/32 kB | 14 kBProgress (3): 0.2/2.7 MB | 22/32 kB | 14 kBProgress (3): 0.2/2.7 MB | 25/32 kB | 14 kBProgress (3): 0.2/2.7 MB | 27/32 kB | 14 kBProgress (3): 0.2/2.7 MB | 30/32 kB | 14 kBProgress (3): 0.2/2.7 MB | 32 kB | 14 kB   Progress (3): 0.2/2.7 MB | 32 kB | 14 kBProgress (3): 0.3/2.7 MB | 32 kB | 14 kBProgress (3): 0.3/2.7 MB | 32 kB | 14 kBProgress (4): 0.3/2.7 MB | 32 kB | 14 kB | 4.1/8.8 kBProgress (4): 0.3/2.7 MB | 32 kB | 14 kB | 4.1/8.8 kBProgress (4): 0.3/2.7 MB | 32 kB | 14 kB | 8.2/8.8 kBProgress (4): 0.3/2.7 MB | 32 kB | 14 kB | 8.8 kB    Progress (4): 0.3/2.7 MB | 32 kB | 14 kB | 8.8 kBProgress (4): 0.3/2.7 MB | 32 kB | 14 kB | 8.8 kBProgress (4): 0.3/2.7 MB | 32 kB | 14 kB | 8.8 kBProgress (4): 0.4/2.7 MB | 32 kB | 14 kB | 8.8 kBProgress (4): 0.4/2.7 MB | 32 kB | 14 kB | 8.8 kBProgress (4): 0.4/2.7 MB | 32 kB | 14 kB | 8.8 kBProgress (4): 0.4/2.7 MB | 32 kB | 14 kB | 8.8 kBProgress (4): 0.4/2.7 MB | 32 kB | 14 kB | 8.8 kBProgress (4): 0.4/2.7 MB | 32 kB | 14 kB | 8.8 kB                                                 Downloaded from central: https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotations/2.1.3/error_prone_annotations-2.1.3.jar (14 kB at 11 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/com/squareup/okhttp3/okhttp/3.14.6/okhttp-3.14.6.jar
+Progress (3): 0.5/2.7 MB | 32 kB | 8.8 kBProgress (3): 0.5/2.7 MB | 32 kB | 8.8 kBProgress (3): 0.5/2.7 MB | 32 kB | 8.8 kBProgress (3): 0.5/2.7 MB | 32 kB | 8.8 kBProgress (3): 0.5/2.7 MB | 32 kB | 8.8 kBProgress (4): 0.5/2.7 MB | 32 kB | 8.8 kB | 3.5 kB                                                  Downloaded from central: https://repo.maven.apache.org/maven2/org/checkerframework/checker-compat-qual/2.0.0/checker-compat-qual-2.0.0.jar (32 kB at 25 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/com/squareup/okio/okio/1.14.0/okio-1.14.0.jar
+Progress (3): 0.5/2.7 MB | 8.8 kB | 3.5 kBProgress (3): 0.6/2.7 MB | 8.8 kB | 3.5 kBProgress (3): 0.6/2.7 MB | 8.8 kB | 3.5 kBProgress (3): 0.6/2.7 MB | 8.8 kB | 3.5 kBProgress (3): 0.6/2.7 MB | 8.8 kB | 3.5 kBProgress (3): 0.6/2.7 MB | 8.8 kB | 3.5 kBProgress (3): 0.6/2.7 MB | 8.8 kB | 3.5 kB                                          Downloaded from central: https://repo.maven.apache.org/maven2/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.jar (8.8 kB at 6.7 kB/s)
+Progress (2): 0.7/2.7 MB | 3.5 kBProgress (2): 0.7/2.7 MB | 3.5 kBProgress (2): 0.7/2.7 MB | 3.5 kBProgress (2): 0.7/2.7 MB | 3.5 kBProgress (2): 0.7/2.7 MB | 3.5 kBProgress (2): 0.7/2.7 MB | 3.5 kBProgress (2): 0.7/2.7 MB | 3.5 kBProgress (2): 0.8/2.7 MB | 3.5 kBProgress (2): 0.8/2.7 MB | 3.5 kBProgress (2): 0.8/2.7 MB | 3.5 kBProgress (2): 0.8/2.7 MB | 3.5 kBProgress (2): 0.8/2.7 MB | 3.5 kBProgress (2): 0.8/2.7 MB | 3.5 kBProgress (2): 0.9/2.7 MB | 3.5 kB                                 Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/animal-sniffer-annotations/1.14/animal-sniffer-annotations-1.14.jar (3.5 kB at 2.6 kB/s)
+Progress (1): 0.9/2.7 MBProgress (1): 0.9/2.7 MBProgress (2): 0.9/2.7 MB | 4.1/86 kBProgress (2): 0.9/2.7 MB | 4.1/86 kBProgress (2): 0.9/2.7 MB | 8.2/86 kBProgress (2): 0.9/2.7 MB | 12/86 kB Progress (2): 0.9/2.7 MB | 16/86 kBProgress (2): 0.9/2.7 MB | 16/86 kBProgress (2): 0.9/2.7 MB | 16/86 kBProgress (2): 0.9/2.7 MB | 20/86 kBProgress (2): 0.9/2.7 MB | 25/86 kBProgress (2): 0.9/2.7 MB | 29/86 kBProgress (2): 0.9/2.7 MB | 33/86 kBProgress (2): 1.0/2.7 MB | 33/86 kBProgress (2): 1.0/2.7 MB | 33/86 kBProgress (2): 1.0/2.7 MB | 33/86 kBProgress (2): 1.0/2.7 MB | 33/86 kBProgress (2): 1.0/2.7 MB | 33/86 kBProgress (2): 1.0/2.7 MB | 37/86 kBProgress (2): 1.0/2.7 MB | 41/86 kBProgress (2): 1.0/2.7 MB | 45/86 kBProgress (2): 1.0/2.7 MB | 49/86 kBProgress (2): 1.0/2.7 MB | 49/86 kBProgress (2): 1.1/2.7 MB | 49/86 kBProgress (2): 1.1/2.7 MB | 53/86 kBProgress (2): 1.1/2.7 MB | 57/86 kBProgress (2): 1.1/2.7 MB | 57/86 kBProgress (2): 1.1/2.7 MB | 61/86 kBProgress (2): 1.1/2.7 MB | 66/86 kBProgress (2): 1.1/2.7 MB | 66/86 kBProgress (2): 1.1/2.7 MB | 66/86 kBProgress (2): 1.1/2.7 MB | 66/86 kBProgress (2): 1.1/2.7 MB | 66/86 kBProgress (2): 1.1/2.7 MB | 70/86 kBProgress (2): 1.1/2.7 MB | 74/86 kBProgress (2): 1.1/2.7 MB | 78/86 kBProgress (2): 1.1/2.7 MB | 82/86 kBProgress (2): 1.2/2.7 MB | 82/86 kBProgress (2): 1.2/2.7 MB | 82/86 kBProgress (2): 1.2/2.7 MB | 82/86 kBProgress (2): 1.2/2.7 MB | 86 kB   Progress (2): 1.2/2.7 MB | 86 kBProgress (2): 1.2/2.7 MB | 86 kBProgress (2): 1.2/2.7 MB | 86 kBProgress (2): 1.3/2.7 MB | 86 kBProgress (2): 1.3/2.7 MB | 86 kBProgress (3): 1.3/2.7 MB | 86 kB | 4.1/428 kBProgress (3): 1.3/2.7 MB | 86 kB | 4.1/428 kBProgress (3): 1.3/2.7 MB | 86 kB | 8.2/428 kBProgress (3): 1.3/2.7 MB | 86 kB | 8.2/428 kBProgress (3): 1.3/2.7 MB | 86 kB | 12/428 kB Progress (3): 1.3/2.7 MB | 86 kB | 16/428 kBProgress (3): 1.3/2.7 MB | 86 kB | 16/428 kBProgress (3): 1.3/2.7 MB | 86 kB | 20/428 kBProgress (3): 1.3/2.7 MB | 86 kB | 20/428 kBProgress (3): 1.3/2.7 MB | 86 kB | 25/428 kBProgress (3): 1.3/2.7 MB | 86 kB | 29/428 kBProgress (3): 1.3/2.7 MB | 86 kB | 33/428 kBProgress (3): 1.3/2.7 MB | 86 kB | 37/428 kBProgress (3): 1.3/2.7 MB | 86 kB | 41/428 kBProgress (3): 1.3/2.7 MB | 86 kB | 45/428 kBProgress (3): 1.3/2.7 MB | 86 kB | 49/428 kBProgress (3): 1.4/2.7 MB | 86 kB | 49/428 kBProgress (3): 1.4/2.7 MB | 86 kB | 53/428 kBProgress (3): 1.4/2.7 MB | 86 kB | 53/428 kBProgress (3): 1.4/2.7 MB | 86 kB | 57/428 kBProgress (3): 1.4/2.7 MB | 86 kB | 61/428 kBProgress (3): 1.4/2.7 MB | 86 kB | 66/428 kBProgress (3): 1.4/2.7 MB | 86 kB | 66/428 kBProgress (3): 1.4/2.7 MB | 86 kB | 66/428 kBProgress (3): 1.4/2.7 MB | 86 kB | 70/428 kBProgress (3): 1.4/2.7 MB | 86 kB | 70/428 kBProgress (3): 1.4/2.7 MB | 86 kB | 74/428 kBProgress (3): 1.4/2.7 MB | 86 kB | 78/428 kBProgress (3): 1.4/2.7 MB | 86 kB | 82/428 kBProgress (3): 1.4/2.7 MB | 86 kB | 82/428 kBProgress (3): 1.5/2.7 MB | 86 kB | 82/428 kBProgress (3): 1.5/2.7 MB | 86 kB | 86/428 kBProgress (3): 1.5/2.7 MB | 86 kB | 86/428 kBProgress (3): 1.5/2.7 MB | 86 kB | 90/428 kBProgress (3): 1.5/2.7 MB | 86 kB | 94/428 kBProgress (3): 1.5/2.7 MB | 86 kB | 98/428 kBProgress (3): 1.5/2.7 MB | 86 kB | 102/428 kBProgress (3): 1.5/2.7 MB | 86 kB | 106/428 kBProgress (3): 1.5/2.7 MB | 86 kB | 111/428 kBProgress (3): 1.5/2.7 MB | 86 kB | 115/428 kBProgress (3): 1.5/2.7 MB | 86 kB | 115/428 kBProgress (3): 1.5/2.7 MB | 86 kB | 115/428 kBProgress (3): 1.5/2.7 MB | 86 kB | 115/428 kBProgress (3): 1.5/2.7 MB | 86 kB | 115/428 kBProgress (3): 1.6/2.7 MB | 86 kB | 115/428 kBProgress (3): 1.6/2.7 MB | 86 kB | 115/428 kBProgress (3): 1.6/2.7 MB | 86 kB | 119/428 kBProgress (3): 1.6/2.7 MB | 86 kB | 123/428 kBProgress (3): 1.6/2.7 MB | 86 kB | 127/428 kBProgress (3): 1.6/2.7 MB | 86 kB | 131/428 kB                                             Downloaded from central: https://repo.maven.apache.org/maven2/com/squareup/okio/okio/1.14.0/okio-1.14.0.jar (86 kB at 55 kB/s)
+Progress (2): 1.6/2.7 MB | 131/428 kBProgress (2): 1.6/2.7 MB | 131/428 kBProgress (2): 1.6/2.7 MB | 131/428 kBProgress (2): 1.6/2.7 MB | 131/428 kBProgress (2): 1.6/2.7 MB | 131/428 kBProgress (2): 1.6/2.7 MB | 135/428 kBProgress (2): 1.6/2.7 MB | 139/428 kBProgress (2): 1.6/2.7 MB | 143/428 kBProgress (2): 1.6/2.7 MB | 147/428 kBProgress (2): 1.7/2.7 MB | 147/428 kBProgress (2): 1.7/2.7 MB | 147/428 kBProgress (2): 1.7/2.7 MB | 152/428 kBProgress (2): 1.7/2.7 MB | 156/428 kBProgress (2): 1.7/2.7 MB | 160/428 kBProgress (2): 1.7/2.7 MB | 164/428 kBProgress (2): 1.7/2.7 MB | 164/428 kBProgress (2): 1.7/2.7 MB | 164/428 kBProgress (2): 1.7/2.7 MB | 168/428 kBProgress (2): 1.7/2.7 MB | 172/428 kBProgress (2): 1.7/2.7 MB | 176/428 kBProgress (2): 1.7/2.7 MB | 180/428 kBProgress (2): 1.7/2.7 MB | 180/428 kBProgress (2): 1.7/2.7 MB | 180/428 kBProgress (2): 1.7/2.7 MB | 184/428 kBProgress (2): 1.7/2.7 MB | 188/428 kBProgress (2): 1.7/2.7 MB | 193/428 kBProgress (2): 1.7/2.7 MB | 197/428 kBProgress (2): 1.8/2.7 MB | 197/428 kBProgress (2): 1.8/2.7 MB | 197/428 kBProgress (2): 1.8/2.7 MB | 197/428 kBProgress (2): 1.8/2.7 MB | 201/428 kBProgress (2): 1.8/2.7 MB | 205/428 kBProgress (2): 1.8/2.7 MB | 209/428 kBProgress (2): 1.8/2.7 MB | 213/428 kBProgress (2): 1.8/2.7 MB | 217/428 kBProgress (2): 1.8/2.7 MB | 217/428 kBProgress (2): 1.8/2.7 MB | 217/428 kBProgress (2): 1.8/2.7 MB | 217/428 kBProgress (2): 1.9/2.7 MB | 217/428 kBProgress (2): 1.9/2.7 MB | 221/428 kBProgress (2): 1.9/2.7 MB | 225/428 kBProgress (2): 1.9/2.7 MB | 229/428 kBProgress (2): 1.9/2.7 MB | 233/428 kBProgress (2): 1.9/2.7 MB | 238/428 kBProgress (2): 1.9/2.7 MB | 242/428 kBProgress (2): 1.9/2.7 MB | 246/428 kBProgress (2): 1.9/2.7 MB | 250/428 kBProgress (2): 1.9/2.7 MB | 250/428 kBProgress (2): 1.9/2.7 MB | 250/428 kBProgress (2): 1.9/2.7 MB | 250/428 kBProgress (2): 1.9/2.7 MB | 250/428 kBProgress (2): 1.9/2.7 MB | 250/428 kBProgress (2): 1.9/2.7 MB | 254/428 kBProgress (2): 1.9/2.7 MB | 258/428 kBProgress (2): 1.9/2.7 MB | 262/428 kBProgress (2): 1.9/2.7 MB | 266/428 kBProgress (2): 2.0/2.7 MB | 266/428 kBProgress (2): 2.0/2.7 MB | 266/428 kBProgress (2): 2.0/2.7 MB | 266/428 kBProgress (2): 2.0/2.7 MB | 266/428 kBProgress (2): 2.0/2.7 MB | 266/428 kBProgress (2): 2.0/2.7 MB | 270/428 kBProgress (2): 2.0/2.7 MB | 274/428 kBProgress (2): 2.0/2.7 MB | 279/428 kBProgress (2): 2.0/2.7 MB | 283/428 kBProgress (2): 2.0/2.7 MB | 283/428 kBProgress (2): 2.1/2.7 MB | 283/428 kBProgress (2): 2.1/2.7 MB | 287/428 kBProgress (2): 2.1/2.7 MB | 291/428 kBProgress (2): 2.1/2.7 MB | 295/428 kBProgress (2): 2.1/2.7 MB | 299/428 kBProgress (2): 2.1/2.7 MB | 299/428 kBProgress (2): 2.1/2.7 MB | 299/428 kBProgress (2): 2.1/2.7 MB | 299/428 kBProgress (2): 2.1/2.7 MB | 303/428 kBProgress (2): 2.1/2.7 MB | 307/428 kBProgress (2): 2.1/2.7 MB | 311/428 kBProgress (2): 2.1/2.7 MB | 315/428 kBProgress (2): 2.1/2.7 MB | 315/428 kBProgress (2): 2.1/2.7 MB | 315/428 kBProgress (2): 2.1/2.7 MB | 319/428 kBProgress (2): 2.1/2.7 MB | 324/428 kBProgress (2): 2.1/2.7 MB | 328/428 kBProgress (2): 2.1/2.7 MB | 332/428 kBProgress (2): 2.2/2.7 MB | 332/428 kBProgress (2): 2.2/2.7 MB | 332/428 kBProgress (2): 2.2/2.7 MB | 336/428 kBProgress (2): 2.2/2.7 MB | 340/428 kBProgress (2): 2.2/2.7 MB | 344/428 kBProgress (2): 2.2/2.7 MB | 348/428 kBProgress (2): 2.2/2.7 MB | 348/428 kBProgress (2): 2.2/2.7 MB | 348/428 kBProgress (2): 2.2/2.7 MB | 348/428 kBProgress (2): 2.2/2.7 MB | 352/428 kBProgress (2): 2.2/2.7 MB | 356/428 kBProgress (2): 2.2/2.7 MB | 360/428 kBProgress (2): 2.2/2.7 MB | 365/428 kBProgress (2): 2.2/2.7 MB | 365/428 kBProgress (2): 2.3/2.7 MB | 365/428 kBProgress (2): 2.3/2.7 MB | 365/428 kBProgress (2): 2.3/2.7 MB | 369/428 kBProgress (2): 2.3/2.7 MB | 373/428 kBProgress (2): 2.3/2.7 MB | 377/428 kBProgress (2): 2.3/2.7 MB | 381/428 kBProgress (2): 2.3/2.7 MB | 381/428 kBProgress (2): 2.3/2.7 MB | 381/428 kBProgress (2): 2.3/2.7 MB | 381/428 kBProgress (2): 2.3/2.7 MB | 381/428 kBProgress (2): 2.3/2.7 MB | 381/428 kBProgress (2): 2.3/2.7 MB | 385/428 kBProgress (2): 2.3/2.7 MB | 389/428 kBProgress (2): 2.4/2.7 MB | 389/428 kBProgress (2): 2.4/2.7 MB | 393/428 kBProgress (2): 2.4/2.7 MB | 397/428 kBProgress (2): 2.4/2.7 MB | 397/428 kBProgress (2): 2.4/2.7 MB | 401/428 kBProgress (2): 2.4/2.7 MB | 406/428 kBProgress (2): 2.4/2.7 MB | 410/428 kBProgress (2): 2.4/2.7 MB | 414/428 kBProgress (2): 2.4/2.7 MB | 414/428 kBProgress (2): 2.4/2.7 MB | 414/428 kBProgress (2): 2.4/2.7 MB | 418/428 kBProgress (2): 2.4/2.7 MB | 422/428 kBProgress (2): 2.4/2.7 MB | 426/428 kBProgress (2): 2.4/2.7 MB | 428 kB    Progress (2): 2.4/2.7 MB | 428 kBProgress (2): 2.4/2.7 MB | 428 kBProgress (2): 2.5/2.7 MB | 428 kBProgress (2): 2.5/2.7 MB | 428 kBProgress (2): 2.5/2.7 MB | 428 kBProgress (2): 2.5/2.7 MB | 428 kBProgress (2): 2.5/2.7 MB | 428 kBProgress (2): 2.5/2.7 MB | 428 kBProgress (2): 2.6/2.7 MB | 428 kBProgress (2): 2.6/2.7 MB | 428 kBProgress (2): 2.6/2.7 MB | 428 kBProgress (2): 2.6/2.7 MB | 428 kBProgress (2): 2.6/2.7 MB | 428 kBProgress (2): 2.6/2.7 MB | 428 kBProgress (2): 2.7/2.7 MB | 428 kBProgress (2): 2.7/2.7 MB | 428 kBProgress (2): 2.7/2.7 MB | 428 kBProgress (2): 2.7/2.7 MB | 428 kBProgress (2): 2.7/2.7 MB | 428 kBProgress (2): 2.7/2.7 MB | 428 kBProgress (2): 2.7 MB | 428 kB                                 Downloaded from central: https://repo.maven.apache.org/maven2/com/squareup/okhttp3/okhttp/3.14.6/okhttp-3.14.6.jar (428 kB at 221 kB/s)
+Downloaded from central: https://repo.maven.apache.org/maven2/com/google/guava/guava/25.0-jre/guava-25.0-jre.jar (2.7 MB at 1.4 MB/s)
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ panda ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] Copying 4 resources
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ panda ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to /var/jenkins_home/workspace/JobGitPull/target/classes
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- maven-compiler-plugin:3.8.1:compile (default) @ panda ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to /var/jenkins_home/workspace/JobGitPull/target/classes
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ panda ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /var/jenkins_home/workspace/JobGitPull/src/test/resources
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ panda ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 3 source files to /var/jenkins_home/workspace/JobGitPull/target/test-classes
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ panda ---
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running pl.pandait.panda.PandaApplicationTest
+15:13:50.051 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+15:13:50.079 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+15:13:50.156 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [pl.pandait.panda.PandaApplicationTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+15:13:50.205 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [pl.pandait.panda.PandaApplicationTest], using SpringBootContextLoader
+15:13:50.215 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [pl.pandait.panda.PandaApplicationTest]: class path resource [pl/pandait/panda/PandaApplicationTest-context.xml] does not exist
+15:13:50.217 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [pl.pandait.panda.PandaApplicationTest]: class path resource [pl/pandait/panda/PandaApplicationTestContext.groovy] does not exist
+15:13:50.218 [main] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [pl.pandait.panda.PandaApplicationTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+15:13:50.222 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [pl.pandait.panda.PandaApplicationTest]: PandaApplicationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:13:50.301 [main] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [pl.pandait.panda.PandaApplicationTest]
+15:13:50.454 [main] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/var/jenkins_home/workspace/JobGitPull/target/classes/pl/pandait/panda/PandaApplication.class]
+15:13:50.457 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration pl.pandait.panda.PandaApplication for test class pl.pandait.panda.PandaApplicationTest
+15:13:50.718 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [pl.pandait.panda.PandaApplicationTest]: using defaults.
+15:13:50.720 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+15:13:50.749 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.transaction.TransactionalTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [org/springframework/transaction/TransactionDefinition]
+15:13:50.751 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttribute]
+15:13:50.753 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@25a6944c, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5e1fa5b1, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@6b00f608, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@2f17e30d, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3e821657, org.springframework.test.context.event.EventPublishingTestExecutionListener@1d131e1b, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@71cf1b07, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@615091b8, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@4fce136b, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@4aa83f4f, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@43b6123e]
+15:13:50.762 [main] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@101639ae testClass = PandaApplicationTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@4c550889 testClass = PandaApplicationTest, locations = '{}', classes = '{class pl.pandait.panda.PandaApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3e62d773, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@638ef7ed, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@7de62196, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@43015c69], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
+15:13:50.848 [main] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=-1}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.2.4.RELEASE)
+
+2021-03-01 15:13:51.886  INFO 215 --- [           main] pl.pandait.panda.PandaApplicationTest    : Starting PandaApplicationTest on 9669cd3fda8f with PID 215 (started by jenkins in /var/jenkins_home/workspace/JobGitPull)
+2021-03-01 15:13:51.891  INFO 215 --- [           main] pl.pandait.panda.PandaApplicationTest    : No active profile set, falling back to default profiles: default
+2021-03-01 15:13:54.769  INFO 215 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-01 15:13:54.916  INFO 215 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2021-03-01 15:13:55.320  INFO 215 --- [           main] pl.pandait.panda.PandaApplicationTest    : Started PandaApplicationTest in 4.446 seconds (JVM running for 6.701)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.3 s - in pl.pandait.panda.PandaApplicationTest
+[INFO] Running pl.pandait.panda.HelloControllerTest
+2021-03-01 15:13:56.141  INFO 215 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [pl.pandait.panda.HelloControllerTest], using SpringBootContextLoader
+2021-03-01 15:13:56.142  INFO 215 --- [           main] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [pl.pandait.panda.HelloControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2021-03-01 15:13:56.142  INFO 215 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [pl.pandait.panda.HelloControllerTest]: HelloControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2021-03-01 15:13:56.167  INFO 215 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration pl.pandait.panda.PandaApplication for test class pl.pandait.panda.HelloControllerTest
+2021-03-01 15:13:56.177  INFO 215 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2021-03-01 15:13:56.187  INFO 215 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@4f820f42, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@4b325930, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@267f9765, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@79ba0a6f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@261de205, org.springframework.test.context.event.EventPublishingTestExecutionListener@7f3fc42f, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@25a1a012, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@ce12fbb, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@4525e9e8, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@443a53df, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@6c33da7a]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.2.4.RELEASE)
+
+2021-03-01 15:13:56.319  INFO 215 --- [           main] pl.pandait.panda.HelloControllerTest     : Starting HelloControllerTest on 9669cd3fda8f with PID 215 (started by jenkins in /var/jenkins_home/workspace/JobGitPull)
+2021-03-01 15:13:56.319  INFO 215 --- [           main] pl.pandait.panda.HelloControllerTest     : No active profile set, falling back to default profiles: default
+2021-03-01 15:13:57.146  INFO 215 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-03-01 15:13:57.168  INFO 215 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-03-01 15:13:57.171  INFO 215 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.30]
+2021-03-01 15:13:57.415  INFO 215 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-03-01 15:13:57.415  INFO 215 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1088 ms
+2021-03-01 15:13:57.820  INFO 215 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-01 15:13:57.866  INFO 215 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2021-03-01 15:13:58.609  INFO 215 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 38657 (http) with context path ''
+2021-03-01 15:13:58.611  INFO 215 --- [           main] pl.pandait.panda.HelloControllerTest     : Started HelloControllerTest in 2.401 seconds (JVM running for 9.992)
+2021-03-01 15:13:58.660  INFO 215 --- [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2021-03-01 15:13:58.661  INFO 215 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-03-01 15:13:58.662  INFO 215 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.512 s - in pl.pandait.panda.HelloControllerTest
+2021-03-01 15:13:58.822  INFO 215 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-03-01 15:13:58.817  INFO 215 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- maven-surefire-plugin:2.22.2:test (default) @ panda ---
+[INFO] Skipping execution of surefire because it has already been run for this configuration
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- maven-jar-plugin:3.1.2:jar (default-jar) @ panda ---
+[INFO] Building jar: /var/jenkins_home/workspace/JobGitPull/target/panda-0.0.1.jar
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- spring-boot-maven-plugin:2.2.4.RELEASE:repackage (repackage) @ panda ---
+[INFO] Replacing main artifact with repackaged archive
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ panda ---
+[INFO] Installing /var/jenkins_home/workspace/JobGitPull/target/panda-0.0.1.jar to /var/jenkins_home/.m2/repository/pl/pandait/panda/0.0.1/panda-0.0.1.jar
+[INFO] Installing /var/jenkins_home/workspace/JobGitPull/pom.xml to /var/jenkins_home/.m2/repository/pl/pandait/panda/0.0.1/panda-0.0.1.pom
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  29.269 s
+[INFO] Finished at: 2021-03-01T15:14:02Z
+[INFO] ------------------------------------------------------------------------
+using settings config with name Artifactory
+Replacing all maven server entries not found in credentials list is true
+[JobGitPull] $ /var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/MVN_36/bin/mvn -s /tmp/settings16797735130704092135.xml deploy
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< pl.pandait:panda >--------------------------
+[INFO] Building panda 0.0.1
+[INFO] --------------------------------[ jar ]---------------------------------
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-deploy-plugin/2.8.2/maven-deploy-plugin-2.8.2.pom
+Progress (1): 2.7/7.1 kBProgress (1): 5.5/7.1 kBProgress (1): 7.1 kB                        Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-deploy-plugin/2.8.2/maven-deploy-plugin-2.8.2.pom (7.1 kB at 7.9 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-deploy-plugin/2.8.2/maven-deploy-plugin-2.8.2.jar
+Progress (1): 2.7/34 kBProgress (1): 5.5/34 kBProgress (1): 8.2/34 kBProgress (1): 11/34 kB Progress (1): 14/34 kBProgress (1): 16/34 kBProgress (1): 19/34 kBProgress (1): 22/34 kBProgress (1): 25/34 kBProgress (1): 27/34 kBProgress (1): 30/34 kBProgress (1): 33/34 kBProgress (1): 34 kB                      Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-deploy-plugin/2.8.2/maven-deploy-plugin-2.8.2.jar (34 kB at 255 kB/s)
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ panda ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] Copying 4 resources
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ panda ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- maven-compiler-plugin:3.8.1:compile (default) @ panda ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ panda ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /var/jenkins_home/workspace/JobGitPull/src/test/resources
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ panda ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 3 source files to /var/jenkins_home/workspace/JobGitPull/target/test-classes
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ panda ---
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running pl.pandait.panda.PandaApplicationTest
+15:14:13.038 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+15:14:13.064 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+15:14:13.121 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [pl.pandait.panda.PandaApplicationTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+15:14:13.146 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [pl.pandait.panda.PandaApplicationTest], using SpringBootContextLoader
+15:14:13.159 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [pl.pandait.panda.PandaApplicationTest]: class path resource [pl/pandait/panda/PandaApplicationTest-context.xml] does not exist
+15:14:13.160 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [pl.pandait.panda.PandaApplicationTest]: class path resource [pl/pandait/panda/PandaApplicationTestContext.groovy] does not exist
+15:14:13.161 [main] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [pl.pandait.panda.PandaApplicationTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+15:14:13.162 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [pl.pandait.panda.PandaApplicationTest]: PandaApplicationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:14:13.226 [main] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [pl.pandait.panda.PandaApplicationTest]
+15:14:13.381 [main] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/var/jenkins_home/workspace/JobGitPull/target/classes/pl/pandait/panda/PandaApplication.class]
+15:14:13.382 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration pl.pandait.panda.PandaApplication for test class pl.pandait.panda.PandaApplicationTest
+15:14:13.544 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [pl.pandait.panda.PandaApplicationTest]: using defaults.
+15:14:13.545 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+15:14:13.593 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.transaction.TransactionalTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [org/springframework/transaction/TransactionDefinition]
+15:14:13.595 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttribute]
+15:14:13.597 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@158a3b2e, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@25a6944c, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@5e1fa5b1, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@6b00f608, org.springframework.test.context.support.DirtiesContextTestExecutionListener@2f17e30d, org.springframework.test.context.event.EventPublishingTestExecutionListener@3e821657, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@1d131e1b, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@71cf1b07, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@615091b8, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@4fce136b, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@4aa83f4f]
+15:14:13.602 [main] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@44e3a2b2 testClass = PandaApplicationTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@101639ae testClass = PandaApplicationTest, locations = '{}', classes = '{class pl.pandait.panda.PandaApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@4c2bb6e0, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7283d3eb, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@1787f2a0, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@34b9f960], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
+15:14:13.709 [main] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=-1}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.2.4.RELEASE)
+
+2021-03-01 15:14:14.529  INFO 314 --- [           main] pl.pandait.panda.PandaApplicationTest    : Starting PandaApplicationTest on 9669cd3fda8f with PID 314 (started by jenkins in /var/jenkins_home/workspace/JobGitPull)
+2021-03-01 15:14:14.533  INFO 314 --- [           main] pl.pandait.panda.PandaApplicationTest    : No active profile set, falling back to default profiles: default
+2021-03-01 15:14:17.094  INFO 314 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-01 15:14:17.250  INFO 314 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2021-03-01 15:14:17.654  INFO 314 --- [           main] pl.pandait.panda.PandaApplicationTest    : Started PandaApplicationTest in 3.921 seconds (JVM running for 6.01)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.372 s - in pl.pandait.panda.PandaApplicationTest
+[INFO] Running pl.pandait.panda.HelloControllerTest
+2021-03-01 15:14:18.228  INFO 314 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [pl.pandait.panda.HelloControllerTest], using SpringBootContextLoader
+2021-03-01 15:14:18.229  INFO 314 --- [           main] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [pl.pandait.panda.HelloControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2021-03-01 15:14:18.230  INFO 314 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [pl.pandait.panda.HelloControllerTest]: HelloControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2021-03-01 15:14:18.235  INFO 314 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration pl.pandait.panda.PandaApplication for test class pl.pandait.panda.HelloControllerTest
+2021-03-01 15:14:18.242  INFO 314 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2021-03-01 15:14:18.245  INFO 314 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@267f9765, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@79ba0a6f, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@261de205, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@7f3fc42f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@25a1a012, org.springframework.test.context.event.EventPublishingTestExecutionListener@ce12fbb, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@4525e9e8, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@443a53df, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@6c33da7a, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@69aabcb0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@32a72c4]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.2.4.RELEASE)
+
+2021-03-01 15:14:18.353  INFO 314 --- [           main] pl.pandait.panda.HelloControllerTest     : Starting HelloControllerTest on 9669cd3fda8f with PID 314 (started by jenkins in /var/jenkins_home/workspace/JobGitPull)
+2021-03-01 15:14:18.353  INFO 314 --- [           main] pl.pandait.panda.HelloControllerTest     : No active profile set, falling back to default profiles: default
+2021-03-01 15:14:18.986  INFO 314 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-03-01 15:14:19.002  INFO 314 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-03-01 15:14:19.003  INFO 314 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.30]
+2021-03-01 15:14:19.238  INFO 314 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-03-01 15:14:19.239  INFO 314 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 876 ms
+2021-03-01 15:14:19.527  INFO 314 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-01 15:14:19.559  INFO 314 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2021-03-01 15:14:20.128  INFO 314 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 33925 (http) with context path ''
+2021-03-01 15:14:20.130  INFO 314 --- [           main] pl.pandait.panda.HelloControllerTest     : Started HelloControllerTest in 1.877 seconds (JVM running for 8.486)
+2021-03-01 15:14:20.230  INFO 314 --- [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2021-03-01 15:14:20.230  INFO 314 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-03-01 15:14:20.231  INFO 314 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.025 s - in pl.pandait.panda.HelloControllerTest
+2021-03-01 15:14:20.352  INFO 314 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-03-01 15:14:20.360  INFO 314 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- maven-surefire-plugin:2.22.2:test (default) @ panda ---
+[INFO] Skipping execution of surefire because it has already been run for this configuration
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- maven-jar-plugin:3.1.2:jar (default-jar) @ panda ---
+[INFO] Building jar: /var/jenkins_home/workspace/JobGitPull/target/panda-0.0.1.jar
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- spring-boot-maven-plugin:2.2.4.RELEASE:repackage (repackage) @ panda ---
+[INFO] Replacing main artifact with repackaged archive
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ panda ---
+[INFO] Installing /var/jenkins_home/workspace/JobGitPull/target/panda-0.0.1.jar to /var/jenkins_home/.m2/repository/pl/pandait/panda/0.0.1/panda-0.0.1.jar
+[INFO] Installing /var/jenkins_home/workspace/JobGitPull/pom.xml to /var/jenkins_home/.m2/repository/pl/pandait/panda/0.0.1/panda-0.0.1.pom
+[INFO] 
+[8mha:////4PzCIMzEcxkaUd1JS3czKY1iP8e812mNaFndG1hXnslPAAAAYB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P0+vJLE4u1gvPjexLDVPzxdEGvvmZ+X75ZekLlOVfvTjc8FPJgaGiiIGKaiG5Py84vycVD1nCA1SyAABjCCFBQCV27OjYAAAAA==[0m[INFO] --- maven-deploy-plugin:2.8.2:deploy (default-deploy) @ panda ---
+Uploading to artifactory: http://192.168.44.44:8081/artifactory/libs-release-local/pl/pandait/panda/0.0.1/panda-0.0.1.jar
+Progress (1): 0.3/33 MBProgress (1): 0.6/33 MBProgress (1): 1.0/33 MBProgress (1): 1.3/33 MBProgress (1): 1.6/33 MBProgress (1): 1.9/33 MBProgress (1): 2.3/33 MBProgress (1): 2.6/33 MBProgress (1): 2.9/33 MBProgress (1): 3.2/33 MBProgress (1): 3.6/33 MBProgress (1): 3.9/33 MBProgress (1): 4.2/33 MBProgress (1): 4.5/33 MBProgress (1): 4.9/33 MBProgress (1): 5.2/33 MBProgress (1): 5.5/33 MBProgress (1): 5.8/33 MBProgress (1): 6.1/33 MBProgress (1): 6.5/33 MBProgress (1): 6.8/33 MBProgress (1): 7.1/33 MBProgress (1): 7.4/33 MBProgress (1): 7.8/33 MBProgress (1): 8.1/33 MBProgress (1): 8.4/33 MBProgress (1): 8.7/33 MBProgress (1): 9.1/33 MBProgress (1): 9.4/33 MBProgress (1): 9.7/33 MBProgress (1): 10/33 MB Progress (1): 10/33 MBProgress (1): 11/33 MBProgress (1): 11/33 MBProgress (1): 11/33 MBProgress (1): 12/33 MBProgress (1): 12/33 MBProgress (1): 12/33 MBProgress (1): 13/33 MBProgress (1): 13/33 MBProgress (1): 13/33 MBProgress (1): 14/33 MBProgress (1): 14/33 MBProgress (1): 14/33 MBProgress (1): 15/33 MBProgress (1): 15/33 MBProgress (1): 15/33 MBProgress (1): 16/33 MBProgress (1): 16/33 MBProgress (1): 16/33 MBProgress (1): 17/33 MBProgress (1): 17/33 MBProgress (1): 17/33 MBProgress (1): 17/33 MBProgress (1): 18/33 MBProgress (1): 18/33 MBProgress (1): 18/33 MBProgress (1): 19/33 MBProgress (1): 19/33 MBProgress (1): 19/33 MBProgress (1): 20/33 MBProgress (1): 20/33 MBProgress (1): 20/33 MBProgress (1): 21/33 MBProgress (1): 21/33 MBProgress (1): 21/33 MBProgress (1): 22/33 MBProgress (1): 22/33 MBProgress (1): 22/33 MBProgress (1): 23/33 MBProgress (1): 23/33 MBProgress (1): 23/33 MBProgress (1): 24/33 MBProgress (1): 24/33 MBProgress (1): 24/33 MBProgress (1): 25/33 MBProgress (1): 25/33 MBProgress (1): 25/33 MBProgress (1): 26/33 MBProgress (1): 26/33 MBProgress (1): 26/33 MBProgress (1): 27/33 MBProgress (1): 27/33 MBProgress (1): 27/33 MBProgress (1): 28/33 MBProgress (1): 28/33 MBProgress (1): 28/33 MBProgress (1): 28/33 MBProgress (1): 29/33 MBProgress (1): 29/33 MBProgress (1): 29/33 MBProgress (1): 30/33 MBProgress (1): 30/33 MBProgress (1): 30/33 MBProgress (1): 31/33 MBProgress (1): 31/33 MBProgress (1): 31/33 MBProgress (1): 32/33 MBProgress (1): 32/33 MBProgress (1): 32/33 MBProgress (1): 33 MB                      Uploaded to artifactory: http://192.168.44.44:8081/artifactory/libs-release-local/pl/pandait/panda/0.0.1/panda-0.0.1.jar (33 MB at 11 MB/s)
+Uploading to artifactory: http://192.168.44.44:8081/artifactory/libs-release-local/pl/pandait/panda/0.0.1/panda-0.0.1.pom
+Progress (1): 4.1/5.4 kBProgress (1): 5.4 kB                        Uploaded to artifactory: http://192.168.44.44:8081/artifactory/libs-release-local/pl/pandait/panda/0.0.1/panda-0.0.1.pom (5.4 kB at 20 kB/s)
+Downloading from artifactory: http://192.168.44.44:8081/artifactory/libs-release-local/pl/pandait/panda/maven-metadata.xml
+Progress (1): 370 B                   Downloaded from artifactory: http://192.168.44.44:8081/artifactory/libs-release-local/pl/pandait/panda/maven-metadata.xml (370 B at 2.2 kB/s)
+Uploading to artifactory: http://192.168.44.44:8081/artifactory/libs-release-local/pl/pandait/panda/maven-metadata.xml
+Progress (1): 322 B                   Uploaded to artifactory: http://192.168.44.44:8081/artifactory/libs-release-local/pl/pandait/panda/maven-metadata.xml (322 B at 3.1 kB/s)
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  21.520 s
+[INFO] Finished at: 2021-03-01T15:14:27Z
+[INFO] ------------------------------------------------------------------------
+Finished: SUCCESS

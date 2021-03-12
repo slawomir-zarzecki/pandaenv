@@ -1,0 +1,10 @@
+commit 659ff2f3dc2aae391e1c74e64413441b54904f4a
+tree 0d874af93683d6573b13005c504e597fe14f9d94
+parent 6530a59dff9a17ac673a6b15b567f8fe033f83db
+author Sławek <sasek.mail@gmail.com> 2021-03-02 19:30:59 +0000
+committer Sławek <sasek.mail@gmail.com> 2021-03-02 19:30:59 +0000
+
+    change addr to slave docker name
+
+
+:100644 100644 d288bd2b7c80518fb9eedfa3dc593020bf51aca4 bd938ff8103c3898a343413df5f9365ea40e8bea M	src/test/java/pl/pandait/panda/PandaApplicationSeleniumTest.java

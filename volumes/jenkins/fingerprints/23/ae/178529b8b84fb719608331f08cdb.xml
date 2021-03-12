@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2021-02-17 18:05:17.471 UTC</timestamp>
+  <md5sum>23ae178529b8b84fb719608331f08cdb</md5sum>
+  <fileName>Credential id=GitHub2 name=slawomir-zarzecki/****** (GitHub2)</fileName>
+  <usages>
+    <entry>
+      <string>MainJob</string>
+      <ranges>7-23</ranges>
+    </entry>
+    <entry>
+      <string>JobGitPull</string>
+      <ranges>1-6</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

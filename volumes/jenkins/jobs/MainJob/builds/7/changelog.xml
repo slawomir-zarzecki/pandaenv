@@ -1,0 +1,13 @@
+commit df9c9a0f8cd8a87588a1e8572892345afd47582a
+tree d45459e00adf93747cf386ea5b2c25b22bf30297
+parent 1fbdef242c4299c58a885945d0756d02d1519e96
+author Sławek <sasek.mail@gmail.com> 2021-03-01 17:53:31 +0000
+committer Sławek <sasek.mail@gmail.com> 2021-03-01 17:53:31 +0000
+
+    merge selnium grid
+
+
+:100644 100644 f620381b549eeb0c0e3db230b6b144edb4deef06 4c00e40debf74912d9b7c8da72b78461cde4dd86 M	src/main/resources/application.properties
+:100755 000000 ffeb21a579aebe49ae646530e404aee3386e0df4 0000000000000000000000000000000000000000 D	src/main/resources/geckodriver
+:100644 000000 300db4b36010b70e0d438c4c20f7b4e0cab71287 0000000000000000000000000000000000000000 D	src/main/resources/geckodriver-v0.27
+:100644 100644 b6c478862baaafca363d3aa09d3aaa7970377b24 d288bd2b7c80518fb9eedfa3dc593020bf51aca4 M	src/test/java/pl/pandait/panda/PandaApplicationSeleniumTest.java

@@ -1,0 +1,6 @@
+Started by user [8mha:////4MbR4cP3x9eVEUIQRljhls/EDgF0icI2r1/iuYZasoFEAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyOEgZu/dLi1CL9gsS8lEQABkCbnMAAAAA=[0mSławek Z
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/TestParam
+[TestParam] $ /bin/bash /tmp/jenkins7086891037674678831.sh
+/tmp/jenkins7086891037674678831.sh: line 2: [true]: command not found
+Finished: SUCCESS

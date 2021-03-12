@@ -1,0 +1,51 @@
+2021-03-12T13:11:05.089Z|5207dc23b1ca180f|127.0.0.1|anonymous|GET|/api/v1/ui/auth/screen/footer|200|188|-|1377.403|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:05.310Z|235486adb3efc29c|127.0.0.1|anonymous|POST|/api/v1/ui/auth/loginRelatedData|200|45|17|1499.235|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:06.384Z|5b8161dbb76203f0|127.0.0.1|anonymous|GET|/api/v1/ui/auth/current|200|530|-|2604.940|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:06.440Z|243ed5863a35c189|127.0.0.1|anonymous|GET|/api/v1/system/onboarding|401|12|-|16.210|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:06.551Z|61784214cefb3662|127.0.0.1|anonymous|GET|/api/v1/system/status/nodes|200|531|-|129.462|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:06.598Z|265b7b19ef253057|127.0.0.1|anonymous|GET|/api/v1/system/featuresConfig|401|12|-|2.984|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:06.654Z|59d9fb84c342c5e |127.0.0.1|anonymous|POST|/api/v1/ui/auth/logout|200|0|0|145.451|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:06.720Z|989073dd30d28d8 |127.0.0.1|anonymous|GET|/api/v1/ui/artifactsearch/pkg/availablePackages|401|12|-|23.407|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:07.936Z|1a7ba55381152253|127.0.0.1|anonymous|POST|/api/v1/ui/auth/loginRelatedData|200|45|17|467.737|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:08.420Z|119bfddf3b6050f4|127.0.0.1|anonymous|GET|/api/v1/ui/auth/screen/footer|200|188|-|1048.071|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:08.704Z|86951c76d950563 |127.0.0.1|anonymous|GET|/api/v1/ui/oauth2/loginRequestPlatform|404|74|-|1268.725|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:11.497Z|7992ad45ee696181|127.0.0.1|anonymous|GET|/api/v1/ui/treebrowser/repoOrder|401|12|-|3.172|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:11.897Z|4908ca1278ef8b61|127.0.0.1|anonymous|GET|/api/v1/ui/auth/current|200|530|-|356.271|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:11.965Z|1ee27ac592d979c8|127.0.0.1|anonymous|GET|/api/v1/system/onboarding|401|12|-|4.536|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:33.294Z|3983fab8662c76b0|127.0.0.1|anonymous|POST|/api/v1/ui/auth/login?_spring_security_remember_me=false|200|446|55|967.093|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:34.077Z|9d5b294b0c73e3c |127.0.0.1|admin|GET|/api/v1/ui/auth/screen/footer|200|834|-|573.183|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:34.319Z|5839e66dcf39e20 |127.0.0.1|admin|GET|/api/v1/system/onboarding|200|237|-|794.230|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:34.532Z|469a17d13d6f2bd5|127.0.0.1|admin|GET|/api/v1/ui/auth/screen/footer|200|834|-|121.615|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:34.588Z|78162ea0def72c86|127.0.0.1|anonymous|POST|/api/v1/ui/auth/loginRelatedData|200|45|17|182.826|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:34.691Z|3f836502de1ef5f8|127.0.0.1|admin|GET|/api/v1/ui/auth/current|200|502|-|275.218|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:34.815Z|4df1f74f0bb421c6|127.0.0.1|anonymous|GET|/api/v1/system/status/nodes|200|531|-|58.315|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:34.896Z|64f6c391814b2ed1|127.0.0.1|admin|GET|/api/v1/system/featuresConfig|200|46|-|13.159|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:34.989Z|7cc675726a0ccab |127.0.0.1|admin|GET|/api/v1/system/onboarding|200|237|-|239.383|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:35.058Z|5fc4312b94bc5da1|127.0.0.1|admin|GET|/api/v1/ui/artifactsearch/pkg/availablePackages|200|-|-|114.375|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:35.232Z|2a5dde08e5817e63|127.0.0.1|admin|GET|/api/v1/ui/repodata?packageSearch=true|200|296|-|125.568|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:35.962Z|7bcb8901c7ab5524|127.0.0.1|admin|GET|/api/v1/ui/home/widget/artifactCount|200|69|-|528.388|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:36.431Z|42e95fc7ee691c1 |127.0.0.1|admin|POST|/api/v1/mds/packages?jfLoader=true|200|304|242|744.092|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:47.492Z|1ea9b3a28898caeb|127.0.0.1|admin|GET|/api/v1/ui/home/widget/artifactCount|200|69|-|161.239|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:48.673Z|7b647382375c3681|127.0.0.1|admin|GET|/api/v1/ui/repodata?search=true|200|500|-|605.623|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:48.683Z|626022ca6fd9e82b|127.0.0.1|admin|GET|/api/v1/ui/repodata?deploy=true|200|976|-|643.236|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:48.758Z|2bc77e5dc5e8ad5b|127.0.0.1|admin|GET|/api/v1/ui/artifactsearch/pkg/availablePackages|200|-|-|621.449|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:48.885Z|2bbd012a03dfd66c|127.0.0.1|admin|GET|/api/v1/ui/setMeUp|200|523|-|854.469|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:49.111Z|32d8181679ec5ff3|127.0.0.1|admin|GET|/api/v1/ui/repodata?packageSearch=true|200|296|-|334.613|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:49.445Z|778abfd58545b4b |127.0.0.1|admin|POST|/api/v1/ui/treebrowser|200|-|152|1941.794|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:49.999Z|79e89629d997207d|127.0.0.1|admin|GET|/api/v1/ui/generalConfig|200|833|-|1025.643|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:50.342Z|3a9688588482073e|127.0.0.1|admin|GET|/api/v1/ui/artifactsearch/property/keyvalue|200|-|-|1038.823|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:50.599Z|5b80c9630937a131|127.0.0.1|admin|POST|/api/v1/ui/treebrowser/tabsAndActions|200|465|102|960.879|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:50.630Z|23bfde81e0811439|127.0.0.1|admin|HEAD|/api/v1/ui/userApiKey|404|0|-|534.380|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:50.946Z|6a52270112c84eb9|127.0.0.1|admin|POST|/api/v1/ui/artifactactions/download|200|72|46|278.387|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:52.199Z|17503c0eea0de26d|127.0.0.1|admin|POST|/api/v1/ui/artifactgeneral|200|328|66|956.448|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:52.412Z|51b9fd0d6104bc5f|127.0.0.1|admin|GET|/api/v1/ui/auth/canAnnotate?type=repository&repoKey=artifactory-build-info&path=|200|4|-|142.523|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:52.937Z|b920fcb676ea2ca |127.0.0.1|admin|POST|/api/v1/ui/artifactgeneral/artifactsCount|200|56|76|519.889|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:11:59.662Z|47e3f1714040cfd9|127.0.0.1|admin|GET|/api/v1/ui/auth/screen/globalState|200|39|-|348.601|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:12:24.912Z|12478256e64d7bad|127.0.0.1|admin|GET|/api/v1/ui/auth/screen/globalState|200|39|-|109.883|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:12:49.638Z|575659fd4d9151e8|127.0.0.1|admin|GET|/api/v1/ui/auth/screen/globalState|200|39|-|428.782|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:13:14.715Z|67745778b5506979|127.0.0.1|admin|GET|/api/v1/ui/auth/screen/globalState|200|39|-|126.324|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:13:39.299Z|4a6fa6e311d6ff2e|127.0.0.1|admin|GET|/api/v1/ui/auth/screen/globalState|200|39|-|214.860|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:14:10.803Z|36bcff28bc3d00ce|127.0.0.1|admin|GET|/api/v1/ui/auth/screen/globalState|200|39|-|232.969|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:14:30.426Z|f852508722ca1cc |127.0.0.1|admin|GET|/api/v1/ui/auth/screen/globalState|200|39|-|153.354|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:14:54.157Z|75ffafde15204bbb|127.0.0.1|admin|GET|/api/v1/ui/auth/screen/globalState|200|39|-|93.024|Chrome|88.0.4324.192|Mac OS|11.2.2
+2021-03-12T13:15:20.400Z|5b98f1bc3a3e6b9b|127.0.0.1|admin|GET|/api/v1/ui/auth/screen/globalState|200|39|-|79.994|Chrome|88.0.4324.192|Mac OS|11.2.2
